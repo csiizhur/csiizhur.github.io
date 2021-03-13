@@ -1,236 +1,194 @@
-
-
 <!DOCTYPE html>
-<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
-
-
-
+<html lang="zh-CN">
 <head>
   <meta charset="UTF-8">
-  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
-  <link rel="icon" href="/img/favicon.png">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
-  <meta http-equiv="x-ua-compatible" content="ie=edge">
-  
-  <meta name="theme-color" content="#2f4154">
-  
-    <meta name="description" content="">
-  
-  <meta name="author" content="John Doe">
-  <meta name="keywords" content="">
-  
-  <title>Clojure的并发-Ref和STM - Hexo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/css/main.css">
 
 
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
-  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
-  
-    
-    
-      
-      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
-    
-  
-
-  
-    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
-  
-
-
-
-<!-- 主题依赖的图标库，不要自行修改 -->
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
-
-
-
-<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
-
-
-<link  rel="stylesheet" href="/css/main.css" />
-
-<!-- 自定义样式保持在最底部 -->
-
-
-  <script id="fluid-configs">
-    var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
-  <script  src="/js/utils.js" ></script>
-  <script  src="/js/color-schema.js" ></script>
-<meta name="generator" content="Hexo 5.4.0"></head>
+
+  <meta name="description" content="clojure处理并发的思路与众不同，采用的是所谓的STM的模型（软事物内存）。你可以将STM想象成数据库，只不过是内存型的，它只支持事物的ACI,也就是原子性，一致性，隔离性，但是不包括持久性，因为状态的保存都在内存里。 C lojure的并发API分为四种模型：  管理协作式，同步修改可变状态的Ref 管理非协作式，同步修改可变状态的Atom 管理异步修改可变状态的Agent 管理Thread">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Clojure的并发-Ref和STM">
+<meta property="og:url" content="http://example.com/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="clojure处理并发的思路与众不同，采用的是所谓的STM的模型（软事物内存）。你可以将STM想象成数据库，只不过是内存型的，它只支持事物的ACI,也就是原子性，一致性，隔离性，但是不包括持久性，因为状态的保存都在内存里。 C lojure的并发API分为四种模型：  管理协作式，同步修改可变状态的Ref 管理非协作式，同步修改可变状态的Atom 管理异步修改可变状态的Agent 管理Thread">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-03-06T10:43:16.000Z">
+<meta property="article:modified_time" content="2021-03-06T11:31:00.745Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/">
 
 
-<body>
-  <header style="height: 70vh;">
-    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
-  <div class="container">
-    <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
 
-    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
-            data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <div class="animated-icon"><span></span><span></span><span></span></div>
-    </button>
+  <title>Clojure的并发-Ref和STM | Hexo</title>
+  
 
-    <!-- Collapsible content -->
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ml-auto text-center">
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/">
-                <i class="iconfont icon-home-fill"></i>
-                首页
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/archives/">
-                <i class="iconfont icon-archive-fill"></i>
-                归档
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/categories/">
-                <i class="iconfont icon-category-fill"></i>
-                分类
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/tags/">
-                <i class="iconfont icon-tags-fill"></i>
-                标签
-              </a>
-            </li>
-          
-        
-          
-          
-          
-          
-            <li class="nav-item">
-              <a class="nav-link" href="/about/">
-                <i class="iconfont icon-user-fill"></i>
-                关于
-              </a>
-            </li>
-          
-        
-        
-          <li class="nav-item" id="search-btn">
-            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
-                class="iconfont icon-search"></i>&nbsp;</a>
-          </li>
-        
-        
-          <li class="nav-item" id="color-toggle-btn">
-            <a class="nav-link" href="javascript:">&nbsp;<i
-                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
-          </li>
-        
-      </ul>
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
     </div>
   </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
 </nav>
 
-    <div class="banner" id="banner" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
-           background-size: cover;">
-      <div class="full-bg-img">
-        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
-          <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="Clojure的并发-Ref和STM">
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Clojure的并发-Ref和STM
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
               
+
+              <time title="创建时间：2021-03-06 18:43:16 / 修改时间：19:31:00" itemprop="dateCreated datePublished" datetime="2021-03-06T18:43:16+08:00">2021-03-06</time>
             </span>
 
-            
-              <div class="mt-3">
-  
-  
-    <span class="post-meta">
-      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-      <time datetime="2021-03-06 18:43" pubdate>
-        2021年3月6日 晚上
-      </time>
-    </span>
-  
-</div>
-
-<div class="mt-1">
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-chart"></i>
-      5.3k 字
-    </span>
-  
-
-  
-    
-    <span class="post-meta mr-2">
-      <i class="iconfont icon-clock-fill"></i>
-      
-      
-      67
-       分钟
-    </span>
-  
-
-  
-  
-</div>
-
-            
-          </div>
-
           
+
         </div>
-      </div>
-    </div>
-  </header>
+      </header>
 
-  <main>
     
-      
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
-<div class="container-fluid nopadding-x">
-  <div class="row nomargin-x">
-    <div class="d-none d-lg-block col-lg-2"></div>
-    <div class="col-lg-8 nopadding-x-md">
-      <div class="container nopadding-x-md" id="board-ctn">
-        <div class="py-5" id="board">
-          <article class="post-content mx-auto">
-            <!-- SEO header -->
-            <h1 style="display: none">Clojure的并发-Ref和STM</h1>
-            
-            <div class="markdown-body">
-              <p>clojure处理并发的思路与众不同，采用的是所谓的STM的模型（软事物内存）。你可以将STM想象成数据库，只不过是内存型的，它只支持事物的ACI,也就是原子性，一致性，隔离性，但是不包括持久性，因为状态的保存都在内存里。</p>
+      
+        <p>clojure处理并发的思路与众不同，采用的是所谓的STM的模型（软事物内存）。你可以将STM想象成数据库，只不过是内存型的，它只支持事物的ACI,也就是原子性，一致性，隔离性，但是不包括持久性，因为状态的保存都在内存里。</p>
 <p>C lojure的并发API分为四种模型：</p>
 <ul>
 <li>管理协作式，同步修改可变状态的Ref</li>
@@ -241,56 +199,56 @@
 <h2 id="Ref和STM"><a href="#Ref和STM" class="headerlink" title="Ref和STM"></a>Ref和STM</h2><blockquote>
 <p>通过ref函数创建一个可变的引用，指向一个不可变的对象：(ref x)</p>
 </blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-keyword">def</span> <span class="hljs-title">song</span> (<span class="hljs-name"><span class="hljs-builtin-name">ref</span></span> #&#123;&#125;))<br></code></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">def</span> <span class="title">song</span> (<span class="name"><span class="builtin-name">ref</span></span> #&#123;&#125;))</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>deref和@ 取引用的内容，解引用使用deref函数，也可以用reader宏@</p>
 </blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs clojure">user=&gt; (deref song)<br>#&#123;&#125;<br>user=&gt; @song<br>#&#123;&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (deref song)</span><br><span class="line">#&#123;&#125;</span><br><span class="line">user=&gt; @song</span><br><span class="line">#&#123;&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>ref-set和dosync</p>
 </blockquote>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs clojure">改变引用指向的内容，使用ref-set函数:(ref-set ref new-value)<br><br>user=&gt; (ref-set song #&#123;&quot;dangerous&quot;&#125;)<br>Execution error (IllegalStateException) at user/eval1 (REPL:1).<br>No transaction running<br>这是因为引用是可变的，对状态的更新需要进行保护，传统语言的话可能采用锁，Clojure是采用事务，将更新包装到事务里，这是通过dosync实现的：<br>user=&gt; (dosync (ref-set song #&#123;&quot;dangerous&quot;&#125;))<br>#&#123;&quot;dangerous&quot;&#125;<br><br>dosync的参数接受多个表达式，这些表达式将被包装在一个事物里，事物支持ACI<br>（1）Atomic，如果你在事务里更新多个Ref，那么这些更新对事务外部来说是一个独立的操作。<br>（2）Consistent，Ref的更新可以设置 validator，如果某个验证失败，整个事务将回滚。<br>（3）Isolated，运行中的事务无法看到其他事务部分完成的结果。<br>dosync更新多个ref<br>(<span class="hljs-keyword">def</span> <span class="hljs-title">singer</span> (<span class="hljs-name"><span class="hljs-builtin-name">ref</span></span> #&#123;&#125;))<br>(<span class="hljs-name"><span class="hljs-builtin-name">dosync</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">ref-set</span></span> song #&#123;<span class="hljs-string">&quot;Dangerous&quot;</span>&#125;)<br>               (<span class="hljs-name"><span class="hljs-builtin-name">ref-set</span></span> singer #&#123;<span class="hljs-string">&quot;MJ&quot;</span>&#125;) )<br>@song      =&gt;  #&#123;&quot;Dangerous&quot;&#125;<br>@singer    =&gt;  #&#123;&quot;MJ&quot;&#125;<br></code></pre></td></tr></table></figure>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">改变引用指向的内容，使用ref-set函数:(ref-set ref new-value)</span><br><span class="line"></span><br><span class="line">user=&gt; (ref-set song #&#123;&quot;dangerous&quot;&#125;)</span><br><span class="line">Execution error (IllegalStateException) at user/eval1 (REPL:1).</span><br><span class="line">No transaction running</span><br><span class="line">这是因为引用是可变的，对状态的更新需要进行保护，传统语言的话可能采用锁，Clojure是采用事务，将更新包装到事务里，这是通过dosync实现的：</span><br><span class="line">user=&gt; (dosync (ref-set song #&#123;&quot;dangerous&quot;&#125;))</span><br><span class="line">#&#123;&quot;dangerous&quot;&#125;</span><br><span class="line"></span><br><span class="line">dosync的参数接受多个表达式，这些表达式将被包装在一个事物里，事物支持ACI</span><br><span class="line">（1）Atomic，如果你在事务里更新多个Ref，那么这些更新对事务外部来说是一个独立的操作。</span><br><span class="line">（2）Consistent，Ref的更新可以设置 validator，如果某个验证失败，整个事务将回滚。</span><br><span class="line">（3）Isolated，运行中的事务无法看到其他事务部分完成的结果。</span><br><span class="line">dosync更新多个ref</span><br><span class="line">(<span class="keyword">def</span> <span class="title">singer</span> (<span class="name"><span class="builtin-name">ref</span></span> #&#123;&#125;))</span><br><span class="line">(<span class="name"><span class="builtin-name">dosync</span></span> (<span class="name"><span class="builtin-name">ref-set</span></span> song #&#123;<span class="string">&quot;Dangerous&quot;</span>&#125;)</span><br><span class="line">               (<span class="name"><span class="builtin-name">ref-set</span></span> singer #&#123;<span class="string">&quot;MJ&quot;</span>&#125;) )</span><br><span class="line">@song      =&gt;  #&#123;&quot;Dangerous&quot;&#125;</span><br><span class="line">@singer    =&gt;  #&#123;&quot;MJ&quot;&#125;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs clojure">user=&gt; (dosync (ref-set song (conj @song &quot;hah&quot;)))<br>[<span class="hljs-string">&quot;dangerous&quot;</span> <span class="hljs-string">&quot;hah&quot;</span>]<br>user=&gt; (dosync (ref-set song (conj @song &quot;hah&quot;)))<br>[<span class="hljs-string">&quot;dangerous&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;hah&quot;</span>]<br>user=&gt; (dosync (ref-set song (conj @song &quot;hah&quot;)))<br>[<span class="hljs-string">&quot;dangerous&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;hah&quot;</span>]<br>user=&gt; @song<br>[<span class="hljs-string">&quot;dangerous&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;hah&quot;</span>]<br></code></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (dosync (ref-set song (conj @song &quot;hah&quot;)))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br><span class="line">user=&gt; (dosync (ref-set song (conj @song &quot;hah&quot;)))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br><span class="line">user=&gt; (dosync (ref-set song (conj @song &quot;hah&quot;)))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br><span class="line">user=&gt; @song</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>alter</p>
 </blockquote>
 <p>完全更新整个引用的值还是比较少见，更常见的更新是根据当前状态更新，例如我们向歌曲集合添加一个歌曲，步骤大概是先查询集合内容，然后往集合里添加歌曲，然后更新整个集合：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-name"><span class="hljs-builtin-name">dosync</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">ref-set</span></span> song (<span class="hljs-name"><span class="hljs-builtin-name">conj</span></span> @song <span class="hljs-string">&quot;heal the world&quot;</span>)))<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(dosync (ref-set song (conj @song &quot;heal the world&quot;)))</span><br></pre></td></tr></table></figure>
 
 <p>查询并更新的操作可以合成一步，这是通过alter函数：</p>
-<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">(<span class="hljs-keyword">alter</span> <span class="hljs-keyword">ref</span> <span class="hljs-keyword">update</span>-fn &amp; args)<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(alter ref update-fn &amp; args)</span><br></pre></td></tr></table></figure>
 
 <p>alter接收一个更新的函数，函数将在更新的时候调用，传入当前状态值并返回新的状态值，因此上面的例子可以改写为：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-name"><span class="hljs-builtin-name">dosync</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">alter</span></span> song conj <span class="hljs-string">&quot;heal the world&quot;</span>))<br>user=&gt; (dosync (alter song conj &quot;we&quot;))<br>[<span class="hljs-string">&quot;dangerous&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;hah&quot;</span> <span class="hljs-string">&quot;we&quot;</span>]<br></code></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">dosync</span></span> (<span class="name"><span class="builtin-name">alter</span></span> song conj <span class="string">&quot;heal the world&quot;</span>))</span><br><span class="line">user=&gt; (dosync (alter song conj &quot;we&quot;))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;we&quot;</span>]</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p><strong>commute</strong></p>
 </blockquote>
 <p>commute函数是alter的变形，commute顾名思义就是要求update-function是可交换的，它的顺序是可以任意排序。commute的允许的并发程度比alter更高一些，因此性能会更好。但是由于commute要求update-function是可交换的，并且会自动重排序，因此如果你的更新要求顺序性，那么commute是不能接受的,commute仅可用在对顺序性没有要求或者要求很低的场景：例如更新聊天窗口的聊天信息，由于网络延迟的因素和个人介入的因素，聊天信息可以认为是天然排序，因此使用commute还可以接受，更新乱序的可能性很低。<br> 另一个例子就不能使用commute了，如实现一个计数器：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-keyword">def</span> <span class="hljs-title">counter</span> (<span class="hljs-name"><span class="hljs-builtin-name">ref</span></span> <span class="hljs-number">0</span>))<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(def counter (ref 0))</span><br></pre></td></tr></table></figure>
 
 <p>实现一个next-counter函数获取计数器的下一个值，我们先使用commute实现：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-keyword">defn</span> <span class="hljs-title">next-counter</span> [] (<span class="hljs-name"><span class="hljs-builtin-name">dosync</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">commute</span></span> counter inc)))<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(defn next-counter [] (dosync (commute counter inc)))</span><br></pre></td></tr></table></figure>
 
 <p>这个函数很简单，每次调用inc递增counter的值，接下来写个测试用例：启动50个线程并发去获取next counter:</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-name"><span class="hljs-builtin-name">dotimes</span></span> [_ <span class="hljs-number">50</span>] (<span class="hljs-name">.start</span> (<span class="hljs-name">Thread.</span> #(<span class="hljs-name">println</span> (<span class="hljs-name">next-counter</span>)))))<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(dotimes [_ 50] (.start (Thread. #(println (next-counter)))))</span><br></pre></td></tr></table></figure>
 
 <p>这段代码稍微解释下，dotimes是重复执行50次，每次启动new并启动一个Thread,这个Thread里干了两件事情：调用next-counter，打印调用结果,第一个版本的next-counter执行下，这是其中一次输出的截取：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs plain">23<br>23<br>23<br><br>23<br>23<br>23<br>23<br>23<br>23<br>23<br>23<br>23<br>28<br>23<br>21<br>23<br>23<br>23<br>23<br>25<br>28<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line"></span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">28</span><br><span class="line">23</span><br><span class="line">21</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">25</span><br><span class="line">28</span><br></pre></td></tr></table></figure>
 
 <p>可以看到有很多的重复数值，这是由于重排序导致事务结束后的值不同，但是你查看counter，确实是50:</p>
-<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-meta">@counter</span>  =&gt; <span class="hljs-number">50</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@counter  &#x3D;&gt; 50</span><br></pre></td></tr></table></figure>
 
 <p>证明更新是没有问题的，问题出在commute的返回值上。</p>
 <p>如果将next-counter修改为alter实现：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-keyword">defn</span> <span class="hljs-title">next-counter</span> [] (<span class="hljs-name"><span class="hljs-builtin-name">dosync</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">alter</span></span> counter inc)))<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(defn next-counter [] (dosync (alter counter inc)))</span><br></pre></td></tr></table></figure>
 
 <p>此时再执行测试用例，可以发现打印结果完全正确了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs plain">……<br>39<br>41<br>42<br>45<br>27<br>46<br>47<br>44<br>48<br>43<br>49<br>40<br>50<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">39</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">45</span><br><span class="line">27</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">44</span><br><span class="line">48</span><br><span class="line">43</span><br><span class="line">49</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
 
 <p>查看counter，也是正确更新到50了：</p>
 <p>@counter =&gt; 50</p>
@@ -315,30 +273,30 @@
 <p>Admin 2: if (G1 + (G2 - 20) + G3) &gt; 100 then dispatchPatrol</p>
 <p>我们刚才提到，Clojure的更新是基于隔离的snapshot，一个事务的更改无法看到另一个事务更改了部分的结果，因此这两个操作都因为满足(45-20)+45+45=115的约束而得到执行，导致实际抽调走了40个士兵，只剩下95个士兵，低于设定的安全标准100人，这就是写偏序现象。<br> 写偏序的解决就很简单，在执行抽调前加入ensure即可保护ref不被其他事务所修改。ensure比(ref-set ref @ref)允许的并发程度更高一些。</p>
 <h2 id="Atom和缓存"><a href="#Atom和缓存" class="headerlink" title="Atom和缓存"></a>Atom和缓存</h2><p>Ref适用的场景是系统中存在多个相互关联的状态，他们需要一起更新，因此需要通过dosync做事务包装。但是如果你有一个状态变量，不需要跟其他状态变量协作，这时候应该使用Atom了。可以将一个Atom和一个Ref一起在一个事务里更新吗？这没办法做到，如果你需要相互协作，你只能使用Ref。Atom适用的场景是状态是独立，没有依赖，它避免了与其他Ref交互的开销，因此性能会更好，特别是对于读来说。</p>
-<h4 id="定义Atom-采用atom函数，赋予一个初始状态"><a href="#定义Atom-采用atom函数，赋予一个初始状态" class="headerlink" title="定义Atom,采用atom函数，赋予一个初始状态"></a>定义Atom,采用atom函数，赋予一个初始状态</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python">mem的初始状态定义成一个<span class="hljs-built_in">map</span><br>(<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mem</span> (<span class="hljs-params">atom &#123;&#125;</span>))</span><br></code></pre></td></tr></table></figure>
+<h4 id="定义Atom-采用atom函数，赋予一个初始状态"><a href="#定义Atom-采用atom函数，赋予一个初始状态" class="headerlink" title="定义Atom,采用atom函数，赋予一个初始状态"></a>定义Atom,采用atom函数，赋予一个初始状态</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mem的初始状态定义成一个map</span><br><span class="line">(def mem (atom &#123;&#125;))</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="deref和-取atom的值"><a href="#deref和-取atom的值" class="headerlink" title="deref和@ 取atom的值"></a>deref和@ 取atom的值</h4><figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs dart"><span class="hljs-meta">@mem</span>         =&gt; &#123;&#125;<br>(deref mem)  =&gt; &#123;&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="deref和-取atom的值"><a href="#deref和-取atom的值" class="headerlink" title="deref和@ 取atom的值"></a>deref和@ 取atom的值</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@mem         &#x3D;&gt; &#123;&#125;</span><br><span class="line">(deref mem)  &#x3D;&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="reset-重新设置atom的值，不关心当前值"><a href="#reset-重新设置atom的值，不关心当前值" class="headerlink" title="reset! 重新设置atom的值，不关心当前值"></a>reset! 重新设置atom的值，不关心当前值</h4><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-name"><span class="hljs-builtin-name">reset!</span></span> mem &#123;<span class="hljs-symbol">:a</span> <span class="hljs-number">1</span>&#125;)<br></code></pre></td></tr></table></figure>
+<h4 id="reset-重新设置atom的值，不关心当前值"><a href="#reset-重新设置atom的值，不关心当前值" class="headerlink" title="reset! 重新设置atom的值，不关心当前值"></a>reset! 重新设置atom的值，不关心当前值</h4><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">reset!</span></span> mem &#123;<span class="symbol">:a</span> <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
 
-<h4 id="swap-如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap-（类似alter"><a href="#swap-如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap-（类似alter" class="headerlink" title="swap! 如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap!（类似alter)"></a>swap! 如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap!（类似alter)</h4><figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">(<span class="hljs-keyword">swap! </span>an-atom f &amp;args)<br><br><span class="hljs-keyword">swap! </span>将函数f作用于当前状态值和额外的参数args之上，形成新的状态值，例如我们给mem加上一个keyword:<br>user=&gt; (<span class="hljs-keyword">swap! </span>mem assoc :<span class="hljs-keyword">b </span><span class="hljs-number">2</span>)<br>&#123;:<span class="hljs-keyword">b </span><span class="hljs-number">2</span>, :a <span class="hljs-number">1</span>&#125;<br></code></pre></td></tr></table></figure>
+<h4 id="swap-如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap-（类似alter"><a href="#swap-如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap-（类似alter" class="headerlink" title="swap! 如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap!（类似alter)"></a>swap! 如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap!（类似alter)</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(swap! an-atom f &amp;args)</span><br><span class="line"></span><br><span class="line">swap! 将函数f作用于当前状态值和额外的参数args之上，形成新的状态值，例如我们给mem加上一个keyword:</span><br><span class="line">user&#x3D;&gt; (swap! mem assoc :b 2)</span><br><span class="line">&#123;:b 2, :a 1&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="compare-and-set"><a href="#compare-and-set" class="headerlink" title="compare and set"></a>compare and set</h4><figure class="highlight clojure-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs clojure-repl">类似原子变量AtomicInteger之类，atom也可以做compare and set的操作<br>(compare-and-set! atom oldValue newValue)<br><br>当且仅当atom的当前状态值等于oldValue的时候，将状态值更新为newValue，并返回一个布尔值表示成功或者失败:<br><span class="hljs-meta">user=&gt;</span><span class="clojure"> (<span class="hljs-keyword">def</span> <span class="hljs-title">c</span> (<span class="hljs-name"><span class="hljs-builtin-name">atom</span></span> <span class="hljs-number">1</span>))</span><br>#&#x27;user/c<br><span class="hljs-meta">user=&gt;</span><span class="clojure"> (<span class="hljs-name"><span class="hljs-builtin-name">compare-and-set!</span></span> c <span class="hljs-number">2</span> <span class="hljs-number">3</span>)</span><br>false<br><span class="hljs-meta">user=&gt;</span><span class="clojure"> (<span class="hljs-name"><span class="hljs-builtin-name">compare-and-set!</span></span> c <span class="hljs-number">1</span> <span class="hljs-number">3</span>)</span><br>true<br><span class="hljs-meta">user=&gt;</span><span class="clojure"> @c</span><br>3<br></code></pre></td></tr></table></figure>
+<h4 id="compare-and-set"><a href="#compare-and-set" class="headerlink" title="compare and set"></a>compare and set</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">类似原子变量AtomicInteger之类，atom也可以做compare and set的操作</span><br><span class="line">(compare-and-set! atom oldValue newValue)</span><br><span class="line"></span><br><span class="line">当且仅当atom的当前状态值等于oldValue的时候，将状态值更新为newValue，并返回一个布尔值表示成功或者失败:</span><br><span class="line">user&#x3D;&gt; (def c (atom 1))</span><br><span class="line">#&#39;user&#x2F;c</span><br><span class="line">user&#x3D;&gt; (compare-and-set! c 2 3)</span><br><span class="line">false</span><br><span class="line">user&#x3D;&gt; (compare-and-set! c 1 3)</span><br><span class="line">true</span><br><span class="line">user&#x3D;&gt; @c</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
 
 <h4 id="缓存和atom"><a href="#缓存和atom" class="headerlink" title="缓存和atom"></a>缓存和atom</h4><ul>
 <li>atom非常适合实现缓存，缓存通常不会跟其他系统状态形成依赖，并且缓存对读的速度要求更高。上面例子中用到的mem其实就是个简单的缓存例子，我们来实现一个putm和getm函数</li>
 </ul>
-<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment">;创建缓存</span><br>(defn make-<span class="hljs-keyword">cache </span>[] (atom &#123;&#125;))<br><br><span class="hljs-comment">;;放入缓存</span><br>(defn putm [<span class="hljs-keyword">cache </span>key value] (<span class="hljs-keyword">swap! </span><span class="hljs-keyword">cache </span>assoc key value))<br><br><span class="hljs-comment">;;取出</span><br>(defn getm [<span class="hljs-keyword">cache </span>key] (key @<span class="hljs-keyword">cache))</span><br><span class="hljs-keyword"></span><br><span class="hljs-keyword"></span><br><span class="hljs-keyword"> </span>  这里key要求是keyword，keyword是类似:a这样的字符序列，你熟悉ruby的话，可以暂时理解成symbol。使用这些API：<br>user=&gt; (def <span class="hljs-keyword">cache </span>(make-<span class="hljs-keyword">cache))</span><br><span class="hljs-keyword">#&#x27;user/cache</span><br><span class="hljs-keyword">user=&gt; </span>(putm <span class="hljs-keyword">cache </span>:a <span class="hljs-number">1</span>)<br>&#123;:a <span class="hljs-number">1</span>&#125;<br>user=&gt; (getm <span class="hljs-keyword">cache </span>:a)<br><span class="hljs-number">1</span><br>user=&gt; (putm <span class="hljs-keyword">cache </span>:<span class="hljs-keyword">b </span><span class="hljs-number">2</span>)<br>&#123;:<span class="hljs-keyword">b </span><span class="hljs-number">2</span>, :a <span class="hljs-number">1</span>&#125;<br>user=&gt; (getm <span class="hljs-keyword">cache </span>:<span class="hljs-keyword">b)</span><br><span class="hljs-keyword">2</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">;创建缓存</span><br><span class="line">(defn make-cache [] (atom &#123;&#125;))</span><br><span class="line"></span><br><span class="line">;;放入缓存</span><br><span class="line">(defn putm [cache key value] (swap! cache assoc key value))</span><br><span class="line"></span><br><span class="line">;;取出</span><br><span class="line">(defn getm [cache key] (key @cache))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   这里key要求是keyword，keyword是类似:a这样的字符序列，你熟悉ruby的话，可以暂时理解成symbol。使用这些API：</span><br><span class="line">user&#x3D;&gt; (def cache (make-cache))</span><br><span class="line">#&#39;user&#x2F;cache</span><br><span class="line">user&#x3D;&gt; (putm cache :a 1)</span><br><span class="line">&#123;:a 1&#125;</span><br><span class="line">user&#x3D;&gt; (getm cache :a)</span><br><span class="line">1</span><br><span class="line">user&#x3D;&gt; (putm cache :b 2)</span><br><span class="line">&#123;:b 2, :a 1&#125;</span><br><span class="line">user&#x3D;&gt; (getm cache :b)</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li><strong>memoize</strong>函数作用于函数f，产生一个新函数，新函数内部保存了一个缓存，缓存从参数到结果的映射。第一次调用的时候，发现缓存没有，就会调用f去计算实际的结果，并放入内部的缓存；下次调用同样的参数的时候，就直接从缓存中取，而不用再次调用f，从而达到提升计算效率的目的。<br>memoize的实现就是基于atom，查看源码：</li>
 </ul>
-<figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs vim">(defn memoize<br>  [<span class="hljs-keyword">f</span>]<br>  (<span class="hljs-keyword">let</span> [mem (atom &#123;&#125;)]<br>    (fn [&amp; <span class="hljs-keyword">args</span>]<br>      (<span class="hljs-keyword">if</span>-<span class="hljs-keyword">let</span> [<span class="hljs-keyword">e</span> (<span class="hljs-keyword">find</span> @mem <span class="hljs-keyword">args</span>)]<br>        (val <span class="hljs-keyword">e</span>)<br>        (<span class="hljs-keyword">let</span> [<span class="hljs-keyword">ret</span> (apply <span class="hljs-keyword">f</span> <span class="hljs-keyword">args</span>)]<br>          (swap! mem assoc <span class="hljs-keyword">args</span> <span class="hljs-keyword">ret</span>)<br>          <span class="hljs-keyword">ret</span>)))))<br><br>内部的缓存名为mem，memoize返回的是一个匿名函数，它接收原有的<span class="hljs-keyword">f</span>函数的参数，<span class="hljs-keyword">if</span>-<span class="hljs-keyword">let</span>判断绑定的变量<span class="hljs-keyword">e</span>是否存在，变量<span class="hljs-keyword">e</span>是通过<span class="hljs-keyword">find</span>从缓存中查询<span class="hljs-keyword">args</span>得到的项，如果存在的话，调用val得到真正的结果并返回；如果不存在，那么使用apply函数将<span class="hljs-keyword">f</span>作用于参数列表之上，计算出结果，并利用swap!将结果加入mem缓存，返回计算结果。<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(defn memoize</span><br><span class="line">  [f]</span><br><span class="line">  (let [mem (atom &#123;&#125;)]</span><br><span class="line">    (fn [&amp; args]</span><br><span class="line">      (if-let [e (find @mem args)]</span><br><span class="line">        (val e)</span><br><span class="line">        (let [ret (apply f args)]</span><br><span class="line">          (swap! mem assoc args ret)</span><br><span class="line">          ret)))))</span><br><span class="line"></span><br><span class="line">内部的缓存名为mem，memoize返回的是一个匿名函数，它接收原有的f函数的参数，if-let判断绑定的变量e是否存在，变量e是通过find从缓存中查询args得到的项，如果存在的话，调用val得到真正的结果并返回；如果不存在，那么使用apply函数将f作用于参数列表之上，计算出结果，并利用swap!将结果加入mem缓存，返回计算结果。</span><br></pre></td></tr></table></figure>
 
 <h4 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h4><p>使用atom实现一个计数器，和使用java.util.concurrent.AtomicInteger做计数器，做一个性能比较，各启动100个线程，每个线程执行100万次原子递增，计算各自的耗时，测试程序如下</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-name"><span class="hljs-builtin-name">ns</span></span> atom-perf)<br>(<span class="hljs-name"><span class="hljs-builtin-name">import</span></span> &#x27;java.util.concurrent.atomic.AtomicInteger)<br>(<span class="hljs-name"><span class="hljs-builtin-name">import</span></span> &#x27;java.util.concurrent.CountDownLatch)<br><br>(<span class="hljs-keyword">def</span> <span class="hljs-title">a</span> (<span class="hljs-name">AtomicInteger.</span> <span class="hljs-number">0</span>))<br>(<span class="hljs-keyword">def</span> <span class="hljs-title">b</span> (<span class="hljs-name"><span class="hljs-builtin-name">atom</span></span> <span class="hljs-number">0</span>))<br><br><span class="hljs-comment">;;为了性能，给java加入type hint</span><br>(<span class="hljs-keyword">defn</span> <span class="hljs-title">java-inc</span> [#<span class="hljs-comment">^AtomicInteger</span> counter] (<span class="hljs-name">.incrementAndGet</span> counter))<br>(<span class="hljs-keyword">defn</span> <span class="hljs-title">countdown-latch</span> [#<span class="hljs-comment">^CountDownLatch</span> latch] (<span class="hljs-name">.countDown</span> latch))<br><br><span class="hljs-comment">;;单线程执行缓存次数</span><br>(<span class="hljs-keyword">def</span> <span class="hljs-title">max_count</span> <span class="hljs-number">1000000</span>)<br><span class="hljs-comment">;;线程数 </span><br>(<span class="hljs-keyword">def</span> <span class="hljs-title">thread_count</span> <span class="hljs-number">100</span>)<br><br>(<span class="hljs-keyword">defn</span> <span class="hljs-title">benchmark</span> [fun]<br>  (<span class="hljs-name"><span class="hljs-builtin-name">let</span></span> [ latch (<span class="hljs-name">CountDownLatch.</span> thread_count)  <span class="hljs-comment">;;关卡锁</span><br>         start (<span class="hljs-name">System/currentTimeMillis</span>) ]     <span class="hljs-comment">;;启动时间</span><br>       (<span class="hljs-name"><span class="hljs-builtin-name">dotimes</span></span> [_ thread_count] (<span class="hljs-name">.start</span> (<span class="hljs-name">Thread.</span> #(<span class="hljs-name"><span class="hljs-builtin-name">do</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">dotimes</span></span> [_ max_count] (<span class="hljs-name">fun</span>)) (<span class="hljs-name">countdown-latch</span> latch))))) <br>       (<span class="hljs-name">.await</span> latch)<br>       (<span class="hljs-name"><span class="hljs-builtin-name">-</span></span> (<span class="hljs-name">System/currentTimeMillis</span>) start)))<br>         <br><br>(<span class="hljs-name">println</span> <span class="hljs-string">&quot;atom:&quot;</span> (<span class="hljs-name">benchmark</span> #(<span class="hljs-name"><span class="hljs-builtin-name">swap!</span></span> b inc)))<br>(<span class="hljs-name">println</span> <span class="hljs-string">&quot;AtomicInteger:&quot;</span> (<span class="hljs-name">benchmark</span> #(<span class="hljs-name">java-inc</span> a)))<br><br>(<span class="hljs-name">println</span> (<span class="hljs-name">.get</span> a))<br>(<span class="hljs-name">println</span> @b)<br></code></pre></td></tr></table></figure>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">ns</span></span> atom-perf)</span><br><span class="line">(<span class="name"><span class="builtin-name">import</span></span> &#x27;java.util.concurrent.atomic.AtomicInteger)</span><br><span class="line">(<span class="name"><span class="builtin-name">import</span></span> &#x27;java.util.concurrent.CountDownLatch)</span><br><span class="line"></span><br><span class="line">(<span class="keyword">def</span> <span class="title">a</span> (<span class="name">AtomicInteger.</span> <span class="number">0</span>))</span><br><span class="line">(<span class="keyword">def</span> <span class="title">b</span> (<span class="name"><span class="builtin-name">atom</span></span> <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">;;为了性能，给java加入type hint</span></span><br><span class="line">(<span class="keyword">defn</span> <span class="title">java-inc</span> [#<span class="comment">^AtomicInteger</span> counter] (<span class="name">.incrementAndGet</span> counter))</span><br><span class="line">(<span class="keyword">defn</span> <span class="title">countdown-latch</span> [#<span class="comment">^CountDownLatch</span> latch] (<span class="name">.countDown</span> latch))</span><br><span class="line"></span><br><span class="line"><span class="comment">;;单线程执行缓存次数</span></span><br><span class="line">(<span class="keyword">def</span> <span class="title">max_count</span> <span class="number">1000000</span>)</span><br><span class="line"><span class="comment">;;线程数 </span></span><br><span class="line">(<span class="keyword">def</span> <span class="title">thread_count</span> <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">(<span class="keyword">defn</span> <span class="title">benchmark</span> [fun]</span><br><span class="line">  (<span class="name"><span class="builtin-name">let</span></span> [ latch (<span class="name">CountDownLatch.</span> thread_count)  <span class="comment">;;关卡锁</span></span><br><span class="line">         start (<span class="name">System/currentTimeMillis</span>) ]     <span class="comment">;;启动时间</span></span><br><span class="line">       (<span class="name"><span class="builtin-name">dotimes</span></span> [_ thread_count] (<span class="name">.start</span> (<span class="name">Thread.</span> #(<span class="name"><span class="builtin-name">do</span></span> (<span class="name"><span class="builtin-name">dotimes</span></span> [_ max_count] (<span class="name">fun</span>)) (<span class="name">countdown-latch</span> latch))))) </span><br><span class="line">       (<span class="name">.await</span> latch)</span><br><span class="line">       (<span class="name"><span class="builtin-name">-</span></span> (<span class="name">System/currentTimeMillis</span>) start)))</span><br><span class="line">         </span><br><span class="line"></span><br><span class="line">(<span class="name">println</span> <span class="string">&quot;atom:&quot;</span> (<span class="name">benchmark</span> #(<span class="name"><span class="builtin-name">swap!</span></span> b inc)))</span><br><span class="line">(<span class="name">println</span> <span class="string">&quot;AtomicInteger:&quot;</span> (<span class="name">benchmark</span> #(<span class="name">java-inc</span> a)))</span><br><span class="line"></span><br><span class="line">(<span class="name">println</span> (<span class="name">.get</span> a))</span><br><span class="line">(<span class="name">println</span> @b)</span><br></pre></td></tr></table></figure>
 
 <p>默认clojure调用java都是通过反射，加入type hint之后编译的字节码就跟java编译器的一致，为了比较公平，定义了java-inc用于调用AtomicInteger.incrementAndGet方法，定义countdown-latch用于调用CountDownLatch.countDown方法，两者都为参数添加了type hint。如果不采用type hint，AtomicInteger反射调用的效率是非常低的。</p>
 <p>测试下来，在我的ubuntu上，AtomicInteger还是占优，基本上比atom的实现快上一倍：</p>
@@ -353,11 +311,11 @@
 <h4 id="创建agent"><a href="#创建agent" class="headerlink" title="创建agent"></a>创建agent</h4><blockquote>
 <p>通过agent函数你就可以创建一个agent，指向一个不可变的初始状态。</p>
 </blockquote>
-<figure class="highlight clojure-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs clojure-repl"><span class="hljs-meta">user=&gt;</span><span class="clojure"> (<span class="hljs-keyword">def</span> <span class="hljs-title">counter</span> (<span class="hljs-name"><span class="hljs-builtin-name">agent</span></span> <span class="hljs-number">0</span>))</span><br>#&#x27;user/counter<br><br><span class="hljs-meta">user=&gt;</span><span class="clojure"> counter</span><br>#&lt;Agent@9444d1: 0&gt;<br></code></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user&#x3D;&gt; (def counter (agent 0))</span><br><span class="line">#&#39;user&#x2F;counter</span><br><span class="line"></span><br><span class="line">user&#x3D;&gt; counter</span><br><span class="line">#&lt;Agent@9444d1: 0&gt;</span><br></pre></td></tr></table></figure>
 
-<h4 id="取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者-宏"><a href="#取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者-宏" class="headerlink" title="取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者@宏"></a><strong>取agent的值</strong>，这跟Ref和Atom没啥两样，都是通过deref或者@宏</h4><figure class="highlight clojure-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs clojure-repl"><span class="hljs-meta">user=&gt;</span><span class="clojure"> @counter</span><br>0<br><span class="hljs-meta">user=&gt;</span><span class="clojure"> (<span class="hljs-name"><span class="hljs-builtin-name">deref</span></span> counter)</span><br>0<br></code></pre></td></tr></table></figure>
+<h4 id="取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者-宏"><a href="#取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者-宏" class="headerlink" title="取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者@宏"></a><strong>取agent的值</strong>，这跟Ref和Atom没啥两样，都是通过deref或者@宏</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user&#x3D;&gt; @counter</span><br><span class="line">0</span><br><span class="line">user&#x3D;&gt; (deref counter)</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
 
-<h4 id="更新agent，通过send或者send-off函数给agent发送任务去更新agent"><a href="#更新agent，通过send或者send-off函数给agent发送任务去更新agent" class="headerlink" title="更新agent，通过send或者send-off函数给agent发送任务去更新agent"></a><strong>更新agent</strong>，通过send或者send-off函数给agent发送任务去更新agent</h4><figure class="highlight clojure-repl"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs clojure-repl"><span class="hljs-meta">user=&gt;</span><span class="clojure"> (<span class="hljs-name"><span class="hljs-builtin-name">send</span></span> counter inc)</span><br>#&lt;Agent@9444d1: 0&gt;<br></code></pre></td></tr></table></figure>
+<h4 id="更新agent，通过send或者send-off函数给agent发送任务去更新agent"><a href="#更新agent，通过send或者send-off函数给agent发送任务去更新agent" class="headerlink" title="更新agent，通过send或者send-off函数给agent发送任务去更新agent"></a><strong>更新agent</strong>，通过send或者send-off函数给agent发送任务去更新agent</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user&#x3D;&gt; (send counter inc)</span><br><span class="line">#&lt;Agent@9444d1: 0&gt;</span><br></pre></td></tr></table></figure>
 
 <p>send返回agent对象，内部的值仍然是0，而非inc递增之后的1，这是因为send是异步发送，更新是在另一个线程执行，两个线程(REPL主线程和更新任务的线程)的执行顺序没有同步，显示什么取决于两者谁更快。更新肯定是发生了，查看counter的值：</p>
 <p>user=&gt; @counter<br>1</p>
@@ -373,7 +331,7 @@
 <p>  默认线程池大小是<strong>CPU核数加上2</strong>。因此<strong>send执行的任务最好不要有阻塞的操作</strong>。而send-off则使用没有大小限制（取决于内存）的线程池：</p>
 <p>final public static ExecutorService soloExecutor = Executors.newCachedThreadPool();</p>
 <p>  因此，<strong>send-off比较适合任务有阻塞的操作</strong>，如IO读写之类。请注意，<strong>所有的agent是共用这些线程池</strong>，这从这些线程池的定义看出来，都是静态变量。</p>
-<h4 id="异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数："><a href="#异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数：" class="headerlink" title="异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数："></a><strong>异步转同步</strong>，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数：</h4><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs clojure">(<span class="hljs-name"><span class="hljs-builtin-name">do</span></span> (<span class="hljs-name"><span class="hljs-builtin-name">send</span></span> counter inc) (<span class="hljs-name"><span class="hljs-builtin-name">await</span></span> counter) (<span class="hljs-name">println</span> @counter))<br></code></pre></td></tr></table></figure>
+<h4 id="异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数："><a href="#异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数：" class="headerlink" title="异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数："></a><strong>异步转同步</strong>，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数：</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(do (send counter inc) (await counter) (println @counter))</span><br></pre></td></tr></table></figure>
 
 <p>send一个任务之后，调用await等待agent所有派发的更新任务结束，然后打印agent的值。await是阻塞当前线程，直到至今为止所有任务派发执行完毕才返回。await没有超时，会一直等待直到条件满足，await-for则可以接受等待的超时时间，如果超过指定时间没有返回，则返回nil，否则返回结果。</p>
 <p> (do (send counter inc) (await-for 100 counter) (println @counter))</p>
@@ -419,138 +377,164 @@
 <p>  利用spawn启动一个actor，其实本质上是一个agent，而发送通过感叹号!，给agent发送一个更新任务，它从recv-map中查找消息对应的处理函数并将消息作为参数来执行。难点在于消息匹配，匹配这种简单类型的消息没有问题，但是如果匹配用到变量，暂时没有想到好的思路实现，例如实现两个actor的ping/pong。</p>
 <p><a target="_blank" rel="noopener" href="http://www.blogjava.net/killme2008/archive/2010/07/archive/2010/07/archive/2010/07/archive/2010/07/14/326027.html">http://www.blogjava.net/killme2008/archive/2010/07/archive/2010/07/archive/2010/07/archive/2010/07/14/326027.html</a></p>
 
-            </div>
-            <hr>
-            <div>
-              <div class="post-metas mb-3">
-                
-                
-              </div>
-              
-                <p class="note note-warning">
-                  
-                    本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！
-                  
-                </p>
-              
-              
-                <div class="post-prevnext">
-                  <article class="post-prev col-6">
-                    
-                    
-                      <a href="/2021/03/13/Docker/">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
-                  </article>
-                  <article class="post-next col-6">
-                    
-                    
-                      <a href="/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Agent%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%92%8CActor/">
-                        <span class="hidden-mobile">Clojure的并发-Agent深入分析和Actor</span>
-                        <span class="visible-mobile">下一篇</span>
-                        <i class="iconfont icon-arrowright"></i>
-                      </a>
-                    
-                  </article>
-                </div>
-              
-            </div>
-
-            
-          </article>
-        </div>
-      </div>
     </div>
-    
-      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
-        <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
-  <div class="toc-body" id="toc-body"></div>
-</div>
-
-      </div>
-    
-  </div>
-</div>
-
-<!-- Custom -->
-
 
     
-
     
-      <a id="scroll-top-button" href="#" role="button">
-        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
-      </a>
     
 
-    
-      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
-     aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content">
-      <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
-        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body mx-3">
-        <div class="md-form mb-5">
-          <input type="text" id="local-search-input" class="form-control validate">
-          <label data-error="x" data-success="v"
-                 for="local-search-input">关键词</label>
-        </div>
-        <div class="list-group" id="local-search-result"></div>
-      </div>
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Agent%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%92%8CActor/" rel="prev" title="Clojure的并发-Agent深入分析和Actor">
+      <i class="fa fa-chevron-left"></i> Clojure的并发-Agent深入分析和Actor
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/03/14/Docker-postgres/" rel="next" title="Docker-postgres">
+      Docker-postgres <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
   </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Ref%E5%92%8CSTM"><span class="nav-number">1.</span> <span class="nav-text">Ref和STM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Atom%E5%92%8C%E7%BC%93%E5%AD%98"><span class="nav-number">2.</span> <span class="nav-text">Atom和缓存</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89Atom-%E9%87%87%E7%94%A8atom%E5%87%BD%E6%95%B0%EF%BC%8C%E8%B5%8B%E4%BA%88%E4%B8%80%E4%B8%AA%E5%88%9D%E5%A7%8B%E7%8A%B6%E6%80%81"><span class="nav-number">2.0.1.</span> <span class="nav-text">定义Atom,采用atom函数，赋予一个初始状态</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#deref%E5%92%8C-%E5%8F%96atom%E7%9A%84%E5%80%BC"><span class="nav-number">2.0.2.</span> <span class="nav-text">deref和@ 取atom的值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#reset-%E9%87%8D%E6%96%B0%E8%AE%BE%E7%BD%AEatom%E7%9A%84%E5%80%BC%EF%BC%8C%E4%B8%8D%E5%85%B3%E5%BF%83%E5%BD%93%E5%89%8D%E5%80%BC"><span class="nav-number">2.0.3.</span> <span class="nav-text">reset! 重新设置atom的值，不关心当前值</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#swap-%E5%A6%82%E6%9E%9C%E4%BD%A0%E7%9A%84%E6%9B%B4%E6%96%B0%E9%9C%80%E8%A6%81%E4%BE%9D%E8%B5%96%E5%BD%93%E5%89%8D%E7%9A%84%E7%8A%B6%E6%80%81%E5%80%BC%EF%BC%8C%E6%88%96%E8%80%85%E5%8F%AA%E6%83%B3%E6%9B%B4%E6%96%B0%E7%8A%B6%E6%80%81%E7%9A%84%E6%9F%90%E4%B8%AA%E9%83%A8%E5%88%86%EF%BC%8C%E9%82%A3%E4%B9%88%E5%B0%B1%E9%9C%80%E8%A6%81%E4%BD%BF%E7%94%A8swap-%EF%BC%88%E7%B1%BB%E4%BC%BCalter"><span class="nav-number">2.0.4.</span> <span class="nav-text">swap! 如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap!（类似alter)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#compare-and-set"><span class="nav-number">2.0.5.</span> <span class="nav-text">compare and set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BC%93%E5%AD%98%E5%92%8Catom"><span class="nav-number">2.0.6.</span> <span class="nav-text">缓存和atom</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">2.0.7.</span> <span class="nav-text">性能测试</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Agent%E5%92%8CActor"><span class="nav-number">3.</span> <span class="nav-text">Agent和Actor</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BAagent"><span class="nav-number">3.0.1.</span> <span class="nav-text">创建agent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8F%96agent%E7%9A%84%E5%80%BC%EF%BC%8C%E8%BF%99%E8%B7%9FRef%E5%92%8CAtom%E6%B2%A1%E5%95%A5%E4%B8%A4%E6%A0%B7%EF%BC%8C%E9%83%BD%E6%98%AF%E9%80%9A%E8%BF%87deref%E6%88%96%E8%80%85-%E5%AE%8F"><span class="nav-number">3.0.2.</span> <span class="nav-text">取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者@宏</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0agent%EF%BC%8C%E9%80%9A%E8%BF%87send%E6%88%96%E8%80%85send-off%E5%87%BD%E6%95%B0%E7%BB%99agent%E5%8F%91%E9%80%81%E4%BB%BB%E5%8A%A1%E5%8E%BB%E6%9B%B4%E6%96%B0agent"><span class="nav-number">3.0.3.</span> <span class="nav-text">更新agent，通过send或者send-off函数给agent发送任务去更新agent</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E8%BD%AC%E5%90%8C%E6%AD%A5%EF%BC%8C%E5%88%9A%E6%89%8D%E6%8F%90%E5%88%B0send%E5%92%8Csend-off%E9%83%BD%E6%98%AF%E5%BC%82%E6%AD%A5%E5%B0%86%E4%BB%BB%E5%8A%A1%E6%8F%90%E4%BA%A4%E7%BB%99%E7%BA%BF%E7%A8%8B%E6%B1%A0%E5%8E%BB%E5%A4%84%E7%90%86%EF%BC%8C%E5%A6%82%E6%9E%9C%E4%BD%A0%E5%B8%8C%E6%9C%9B%E5%90%8C%E6%AD%A5%E7%AD%89%E5%BE%85%E7%BB%93%E6%9E%9C%E8%BF%94%E5%9B%9E%EF%BC%8C%E9%82%A3%E4%B9%88%E5%8F%AF%E4%BB%A5%E4%BD%BF%E7%94%A8await%E5%87%BD%E6%95%B0%EF%BC%9A"><span class="nav-number">3.0.4.</span> <span class="nav-text">异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">3.0.5.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8A%A0%E5%85%A5%E4%BA%8B%E7%89%A9"><span class="nav-number">3.0.6.</span> <span class="nav-text">加入事物</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E9%97%AD%E7%BA%BF%E7%A8%8B%E6%B1%A0"><span class="nav-number">3.0.7.</span> <span class="nav-text">关闭线程池</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%8E%9F%E7%90%86%E6%B5%85%E6%9E%90"><span class="nav-number">3.0.8.</span> <span class="nav-text">原理浅析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%B7%9Factor%E7%9A%84%E6%AF%94%E8%BE%83"><span class="nav-number">3.0.9.</span> <span class="nav-text">跟actor的比较</span></a></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">John Doe</p>
+  <div class="site-description" itemprop="description"></div>
 </div>
-    
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
 
-    
-  </main>
 
-  <footer class="text-center mt-5 py-3">
-  <div class="footer-content">
-     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
   </div>
-  
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
 
   
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
 
-  
-</footer>
+<script src="/js/utils.js"></script>
 
-<!-- SCRIPTS -->
-
-  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
-  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
-
-  <script>
-    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
-    NProgress.start()
-    window.addEventListener('load', function() {
-      NProgress.done();
-    })
-  </script>
+<script src="/js/motion.js"></script>
 
 
-<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
-<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
-<script  src="/js/debouncer.js" ></script>
-<script  src="/js/events.js" ></script>
-<script  src="/js/plugins.js" ></script>
-
-<!-- Plugins -->
+<script src="/js/schemes/muse.js"></script>
 
 
-  
-    <script  src="/js/lazyload.js" ></script>
-  
+<script src="/js/next-boot.js"></script>
+
 
 
 
@@ -558,50 +542,6 @@
 
 
 
-  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
-
-
-
-  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
-
-
-
-
-
-
-  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
-  <script>
-    (function (window, document) {
-      var typing = Fluid.plugins.typing;
-      var title = document.getElementById('subtitle').title;
-      
-      typing(title)
-      
-    })(window, document);
-  </script>
-
-
-
-  <script  src="/js/local-search.js" ></script>
-  <script>
-    (function () {
-      var path = "/local-search.xml";
-      $('#local-search-input').on('click', function() {
-        searchFunc(path, 'local-search-input', 'local-search-result');
-      });
-      $('#modalSearch').on('shown.bs.modal', function() {
-        $('#local-search-input').focus();
-      });
-    })()
-  </script>
 
 
 
@@ -614,13 +554,9 @@
 
 
 
+  
 
-
-
-<!-- 主题的启动项 保持在最底部 -->
-<script  src="/js/boot.js" ></script>
-
-
+  
 
 </body>
 </html>
