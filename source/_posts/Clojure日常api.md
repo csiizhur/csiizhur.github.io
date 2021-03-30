@@ -25,3 +25,17 @@ user=> (cons 3 [1 2])
 user=> (into [1 2] [3])
 [1 2 3]
 ```
+
+> nth get
+```clojure
+user=> (get (:rows (:data {:data {:rows [1 2 3]}})) 0)
+1
+user=> (nth (:rows (:data {:data {:rows [1 2 3]}})) 0)
+1
+
+user=> (nth (:rows (:data {:data {:rows []}})) 0)
+Execution error (IndexOutOfBoundsException) at user/eval320 (REPL:1).
+null
+user=> (get (:rows (:data {:data {:rows []}})) 0)
+nil
+```
