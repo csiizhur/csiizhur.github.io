@@ -170,7 +170,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2021-03-30 21:49:30 / 修改时间：21:51:30" itemprop="dateCreated datePublished" datetime="2021-03-30T21:49:30+08:00">2021-03-30</time>
+              <time title="创建时间：2021-03-30 21:49:30 / 修改时间：22:03:34" itemprop="dateCreated datePublished" datetime="2021-03-30T21:49:30+08:00">2021-03-30</time>
             </span>
 
           
@@ -188,6 +188,16 @@
 <p>替换Vec第一个元素的值</p>
 </blockquote>
 <figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">assoc</span></span> one_avg <span class="number">0</span> <span class="string">&quot;汇总&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>Reverse函数</p>
+</blockquote>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">reverse</span></span> [<span class="number">1</span> <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>conj cons into</p>
+</blockquote>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (conj [1 2] 3)</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">user=&gt; (cons 3 [1 2])</span><br><span class="line">(<span class="number">3</span> <span class="number">1</span> <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">user=&gt; (into [1 2] [3])</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
 
       
     </div>
