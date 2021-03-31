@@ -7,6 +7,9 @@ tags:
 > 替换Vec第一个元素的值
 ```clojure
 (assoc one_avg 0 "汇总")
+
+(def avg ("/" "/" "/" "/" 0.2088M 1.1259M 0.9171M 0.2088M "/" 0.9171M))
+(assoc (vec avg) 0 "汇总")
 ```
 
 > Reverse函数
