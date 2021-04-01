@@ -42,3 +42,18 @@ null
 user=> (get (:rows (:data {:data {:rows []}})) 0)
 nil
 ```
+
+> assoc 加线程宏
+```clojure
+user=> (def a {:name 123})
+#'user/a
+
+user=> (let [a (-> (assoc a :name 8) (assoc :name 9))] a)
+{:name 9}
+
+user=> (let [a (assoc a :name 8) a (assoc a :name 9)] a)
+{:name 9}
+
+user=> a
+{:name 123}
+```
