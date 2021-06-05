@@ -57,3 +57,26 @@ user=> (let [a (assoc a :name 8) a (assoc a :name 9)] a)
 user=> a
 {:name 123}
 ```
+
+> some when
+```clojure
+user=> (some #(when (>= % 3) %) (range))
+3
+返回集合满足条件的第一项元素
+```
+
+>map函数
+```clojure
+(def f (fn [x] (* 3 x)))
+user=> (map f [1 2 3])
+(3 6 9)
+user=> (map f `(1 2 3))
+(3 6 9)
+```
+>map some when
+```clojure
+(map (fn [item]
+    (some #(when (= (:name item) (:name (second %)))
+             (first %)) query-cols))
+    all-expected-cols)
+```
