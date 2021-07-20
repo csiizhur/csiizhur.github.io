@@ -71,6 +71,10 @@ user=> @song
 
 ```
 (dosync (ref-set song (conj @song "heal the world")))
+(dosync (ref-set song (conj @song "heal the world2")))
+(dosync (ref-set song (conj @song "heal the world3")))
+
+(count @song)
 ```
 
 查询并更新的操作可以合成一步，这是通过alter函数：

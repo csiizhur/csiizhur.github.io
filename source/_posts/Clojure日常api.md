@@ -4,6 +4,20 @@ date: 2021-03-30 21:49:30
 tags:
 ---
 
+> 添加元素 volatile!
+```clojure
+(def rows (volatile! []))
+user=> (vswap! rows conj ['安徽' '合肥' '肥西'])
+[[安徽' 合肥' 肥西']]
+user=> @rows
+[[安徽' 合肥' 肥西']]
+
+
+(def row-count (volatile! 0))
+(dec (vswap! row-count inc))
+@row-count
+```
+
 > 替换Vec第一个元素的值
 ```clojure
 (assoc one_avg 0 "汇总")
