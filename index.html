@@ -145,6 +145,76 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/07/20/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/07/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-20 20:54:52" itemprop="dateCreated datePublished" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+
+<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/Clojure%E6%97%A5%E5%B8%B8api/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -176,7 +246,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-06-06 00:19:00" itemprop="dateModified" datetime="2021-06-06T00:19:00+08:00">2021-06-06</time>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
               </span>
 
           
@@ -191,6 +261,11 @@
 
       
           <blockquote>
+<p>添加元素 volatile!</p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">def</span> <span class="title">rows</span> (<span class="name">volatile!</span> []))</span><br><span class="line">user=&gt; (vswap! rows conj [&#x27;安徽&#x27; &#x27;合肥&#x27; &#x27;肥西&#x27;])</span><br><span class="line">[[安徽&#x27; 合肥&#x27; 肥西&#x27;]]</span><br><span class="line">user=&gt; @rows</span><br><span class="line">[[安徽&#x27; 合肥&#x27; 肥西&#x27;]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(<span class="keyword">def</span> <span class="title">row-count</span> (<span class="name">volatile!</span> <span class="number">0</span>))</span><br><span class="line">(<span class="name"><span class="builtin-name">dec</span></span> (<span class="name">vswap!</span> row-count inc))</span><br><span class="line">@row-count</span><br></pre></td></tr></table></figure>
+
+<blockquote>
 <p>替换Vec第一个元素的值</p>
 </blockquote>
 <figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="builtin-name">assoc</span></span> one_avg <span class="number">0</span> <span class="string">&quot;汇总&quot;</span>)</span><br><span class="line"></span><br><span class="line">(<span class="keyword">def</span> <span class="title">avg</span> (<span class="string">&quot;/&quot;</span> <span class="string">&quot;/&quot;</span> <span class="string">&quot;/&quot;</span> <span class="string">&quot;/&quot;</span> <span class="number">0.2088</span>M <span class="number">1.1259</span>M <span class="number">0.9171</span>M <span class="number">0.2088</span>M <span class="string">&quot;/&quot;</span> <span class="number">0.9171</span>M))</span><br><span class="line">(<span class="name"><span class="builtin-name">assoc</span></span> (<span class="name"><span class="builtin-name">vec</span></span> avg) <span class="number">0</span> <span class="string">&quot;汇总&quot;</span>)</span><br></pre></td></tr></table></figure>
@@ -269,10 +344,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-14 00:49:59 / 修改时间：00:56:29" itemprop="dateCreated datePublished" datetime="2021-03-14T00:49:59+08:00">2021-03-14</time>
+              <time title="创建时间：2021-03-14 00:49:59" itemprop="dateCreated datePublished" datetime="2021-03-14T00:49:59+08:00">2021-03-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
+              </span>
 
           
 
@@ -335,10 +416,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-14 00:17:26 / 修改时间：00:33:57" itemprop="dateCreated datePublished" datetime="2021-03-14T00:17:26+08:00">2021-03-14</time>
+              <time title="创建时间：2021-03-14 00:17:26" itemprop="dateCreated datePublished" datetime="2021-03-14T00:17:26+08:00">2021-03-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
+              </span>
 
           
 
@@ -442,10 +529,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-14 00:01:09 / 修改时间：00:01:41" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
+              <time title="创建时间：2021-03-14 00:01:09" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
+              </span>
 
           
 
@@ -501,10 +594,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-14 00:01:09 / 修改时间：00:56:49" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
+              <time title="创建时间：2021-03-14 00:01:09" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
+              </span>
 
           
 
@@ -559,10 +658,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-06 18:43:16 / 修改时间：19:31:00" itemprop="dateCreated datePublished" datetime="2021-03-06T18:43:16+08:00">2021-03-06</time>
+              <time title="创建时间：2021-03-06 18:43:16" itemprop="dateCreated datePublished" datetime="2021-03-06T18:43:16+08:00">2021-03-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
+              </span>
 
           
 
@@ -604,7 +709,7 @@
 <p>alter</p>
 </blockquote>
 <p>完全更新整个引用的值还是比较少见，更常见的更新是根据当前状态更新，例如我们向歌曲集合添加一个歌曲，步骤大概是先查询集合内容，然后往集合里添加歌曲，然后更新整个集合：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(dosync (ref-set song (conj @song &quot;heal the world&quot;)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(dosync (ref-set song (conj @song &quot;heal the world&quot;)))</span><br><span class="line">(dosync (ref-set song (conj @song &quot;heal the world2&quot;)))</span><br><span class="line">(dosync (ref-set song (conj @song &quot;heal the world3&quot;)))</span><br><span class="line"></span><br><span class="line">(count @song)</span><br></pre></td></tr></table></figure>
 
 <p>查询并更新的操作可以合成一步，这是通过alter函数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(alter ref update-fn &amp; args)</span><br></pre></td></tr></table></figure>
@@ -813,7 +918,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-03-13 17:48:43" itemprop="dateModified" datetime="2021-03-13T17:48:43+08:00">2021-03-13</time>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
               </span>
 
           
@@ -832,76 +937,6 @@
 </blockquote>
 <figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">defn-</span> <span class="title">update-dashboard-parameters</span></span><br><span class="line">  [&#123;<span class="symbol">:keys</span> [type interval_day default], <span class="symbol">:as</span> parameter&#125;]</span><br><span class="line">  (<span class="name"><span class="builtin-name">cond</span></span></span><br><span class="line">    <span class="comment">;;当前日期的单个日期</span></span><br><span class="line">    (<span class="name"><span class="builtin-name">and</span></span> (<span class="name"><span class="builtin-name">=</span></span> <span class="string">&quot;date/single&quot;</span> type) (<span class="name"><span class="builtin-name">not</span></span> (<span class="name"><span class="builtin-name">nil?</span></span> interval_day)))</span><br><span class="line">    (<span class="name">TimeUtil/diff</span> interval_day)</span><br><span class="line"></span><br><span class="line">    <span class="comment">;;当前日期的日期范围</span></span><br><span class="line">    (<span class="name"><span class="builtin-name">and</span></span> (<span class="name"><span class="builtin-name">=</span></span> <span class="string">&quot;date/range&quot;</span> type) (<span class="name"><span class="builtin-name">not</span></span> (<span class="name"><span class="builtin-name">nil?</span></span> interval_day)))</span><br><span class="line">    (<span class="name">TimeUtil/diff_date_range</span> interval_day)</span><br><span class="line">    <span class="symbol">:else</span></span><br><span class="line">    default))</span><br><span class="line"></span><br><span class="line">(<span class="name">update-dashboard-parameters</span> parameter)</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/02/28/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/02/28/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-02-28 11:39:55" itemprop="dateCreated datePublished" datetime="2021-02-28T11:39:55+08:00">2021-02-28</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
 
       
     </div>

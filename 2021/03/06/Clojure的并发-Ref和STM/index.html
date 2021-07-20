@@ -28,7 +28,7 @@
 <meta property="og:description" content="clojure处理并发的思路与众不同，采用的是所谓的STM的模型（软事物内存）。你可以将STM想象成数据库，只不过是内存型的，它只支持事物的ACI,也就是原子性，一致性，隔离性，但是不包括持久性，因为状态的保存都在内存里。 C lojure的并发API分为四种模型：  管理协作式，同步修改可变状态的Ref 管理非协作式，同步修改可变状态的Atom 管理异步修改可变状态的Agent 管理Thread">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-03-06T10:43:16.000Z">
-<meta property="article:modified_time" content="2021-03-06T11:31:00.745Z">
+<meta property="article:modified_time" content="2021-07-20T12:54:52.704Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
@@ -172,10 +172,16 @@
                 <i class="far fa-calendar"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-03-06 18:43:16 / 修改时间：19:31:00" itemprop="dateCreated datePublished" datetime="2021-03-06T18:43:16+08:00">2021-03-06</time>
+              <time title="创建时间：2021-03-06 18:43:16" itemprop="dateCreated datePublished" datetime="2021-03-06T18:43:16+08:00">2021-03-06</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-20 20:54:52" itemprop="dateModified" datetime="2021-07-20T20:54:52+08:00">2021-07-20</time>
+              </span>
 
           
 
@@ -217,7 +223,7 @@
 <p>alter</p>
 </blockquote>
 <p>完全更新整个引用的值还是比较少见，更常见的更新是根据当前状态更新，例如我们向歌曲集合添加一个歌曲，步骤大概是先查询集合内容，然后往集合里添加歌曲，然后更新整个集合：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(dosync (ref-set song (conj @song &quot;heal the world&quot;)))</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(dosync (ref-set song (conj @song &quot;heal the world&quot;)))</span><br><span class="line">(dosync (ref-set song (conj @song &quot;heal the world2&quot;)))</span><br><span class="line">(dosync (ref-set song (conj @song &quot;heal the world3&quot;)))</span><br><span class="line"></span><br><span class="line">(count @song)</span><br></pre></td></tr></table></figure>
 
 <p>查询并更新的操作可以合成一步，这是通过alter函数：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(alter ref update-fn &amp; args)</span><br></pre></td></tr></table></figure>
