@@ -16,3 +16,11 @@ npm config get registry
 ```
 
 `https://www.mintimate.cn/`
+
+
+##### zsh bash切换
+```shell
+chsh -s /bin/zsh
+chsh -s /bin/bash
+cat /etc/shells
+```
