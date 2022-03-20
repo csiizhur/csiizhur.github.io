@@ -12,12 +12,12 @@
 
 <link rel="stylesheet" href="/css/main.css">
 
-
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Noto Serif SC:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|EB Garamond:300,300italic,400,400italic,700,700italic|Source Code Pro:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
 <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
 
 <script id="hexo-configurations">
     var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Muse","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","width":240,"display":"always","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
   <meta property="og:type" content="website">
@@ -113,9 +113,24 @@
     <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
 
   </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
+
+  </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">11</span></a>
 
   </li>
   </ul>
@@ -170,10 +185,24 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2022-03-20 13:36:25 / 修改时间：13:47:10" itemprop="dateCreated datePublished" datetime="2022-03-20T13:36:25+08:00">2022-03-20</time>
+              <time title="创建时间：2022-03-20 13:36:25 / 修改时间：14:21:15" itemprop="dateCreated datePublished" datetime="2022-03-20T13:36:25+08:00">2022-03-20</time>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -191,7 +220,14 @@
 <h4 id="动态数据源注解"><a href="#动态数据源注解" class="headerlink" title="动态数据源注解"></a>动态数据源注解</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DataSourceAnnotation &#123;</span><br><span class="line">    String <span class="title function_">name</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="动态数据源切面"><a href="#动态数据源切面" class="headerlink" title="动态数据源切面"></a>动态数据源切面</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Aspect</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DataSourceAspect</span> <span class="keyword">implements</span> <span class="title class_">Ordered</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Pointcut(&quot;@annotation(annotation.DataSourceAnnotation)&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">dataSourcePointCut</span><span class="params">()</span> &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 事物：AbstractRoutingDataSource 只支持单库事物 即:切换数据源要在开启事物之前</span></span><br><span class="line"><span class="comment">     * 传统的Spring管理事务是放在Service业务层操作的，所以更换数据源的操作要放在这个操作之前进行。也就是切换数据源操作放在Controller层，可是这样操作会造成Controller层代码混乱的结果。</span></span><br><span class="line"><span class="comment">     * 故而想到的解决方案是将事务管理在数据持久 (Dao层) 开启，切换数据源的操作放在业务层进行操作，就可在事务开启之前顺利进行数据源切换，不会再出现切换失败了</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> joinPoint</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Throwable</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Around(&quot;dataSourcePointCut()&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> Object <span class="title function_">around</span><span class="params">(ProceedingJoinPoint joinPoint)</span> <span class="keyword">throws</span> Throwable &#123;</span><br><span class="line">        <span class="type">MethodSignature</span> <span class="variable">signature</span> <span class="operator">=</span> (MethodSignature) joinPoint.getSignature();</span><br><span class="line">        <span class="type">Method</span> <span class="variable">method</span> <span class="operator">=</span> signature.getMethod();</span><br><span class="line">        <span class="type">DataSourceAnnotation</span> <span class="variable">dataSourceAnnotation</span> <span class="operator">=</span> method.getAnnotation(DataSourceAnnotation.class);</span><br><span class="line">        <span class="keyword">if</span> (Objects.isNull(dataSourceAnnotation)) &#123;</span><br><span class="line">            DataSourceContextHolder.setDbType(<span class="string">&quot;dataSource_a&quot;</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            DataSourceContextHolder.setDbType(dataSourceAnnotation.name());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="type">Object</span> <span class="variable">result</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            result = joinPoint.proceed();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line"></span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            DataSourceContextHolder.clearDbType();</span><br><span class="line">        &#125;</span><br><span class="line">        DataSourceContextHolder.setDbType(<span class="string">&quot;dataSource_a&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="数据源使用"><a href="#数据源使用" class="headerlink" title="数据源使用"></a>数据源使用</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PermissionController</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataSourceAMapper aMapper;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/a&quot;)</span></span><br><span class="line">    <span class="meta">@DataSourceAnnotation(name = &quot;dataSource_monitor_data&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> Object <span class="title function_">a</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> aMapper.selectByPrimaryKey(<span class="number">1L</span>);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> DataSourceBMapper bMapper;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/b&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@ResponseBody</span> Object <span class="title function_">b</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> bMapper.selectByPrimaryKey(<span class="number">1L</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/20/SpringMvc%E4%BD%BF%E7%94%A8%E5%A4%9A%E6%95%B0%E6%8D%AE%E6%BA%90/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -237,7 +273,21 @@
               <time title="创建时间：2022-03-20 13:25:12" itemprop="dateCreated datePublished" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
             </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>367</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -256,12 +306,14 @@
 
 <p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
 <h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/20/hello-world/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -314,7 +366,21 @@
                 <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>228</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -330,6 +396,14 @@
 <p>hexo clean g -d<br>4。hexo deploy</p>
 <h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    ~/csiizhur.github.io  on   hexo ?2  hexo clean &amp;&amp; hexo g </span><br><span class="line">    ~/csiizhur.github.io  on   hexo ?2  hexo s</span><br><span class="line">    ~/csiizhur.github.io  on   hexo ?2  hexo d</span><br></pre></td></tr></table></figure>
 
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/18/hexo%E7%9B%B8%E5%85%B3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -379,10 +453,33 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
+                <time title="修改时间：2022-03-20 14:21:54" itemprop="dateModified" datetime="2022-03-20T14:21:54+08:00">2022-03-20</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/clojure/" itemprop="url" rel="index"><span itemprop="name">clojure</span></a>
+                </span>
+            </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>478</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -403,6 +500,14 @@
 <p>sidebarSchemePadding</p>
 </blockquote>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">$ git push origin #将当前分支推送到origin主机的对应分支</span><br><span class="line"></span><br><span class="line">如果当前分支只有一个追踪分支，那么主机名都可以省略。 </span><br><span class="line">$ git push #如果当前分支与多个主机存在追踪关系，那么这个时候-u选项会指定一个默认主机，这样后面就可以不加任何参数使用git push。</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">$ git push -u origin master #将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push了。</span><br><span class="line"> 不带任何参数的git push，默认只推送当前分支，这叫做simple方式。此外，还有一种matching方式，会推送所有有对应的远程分支的本地分支。Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2022/03/18/git%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -455,7 +560,21 @@
                 <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
               </span>
 
-          
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
 
         </div>
       </header>
@@ -490,592 +609,14 @@
 <p>nth get</p>
 </blockquote>
 <figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="name"><span class="built_in">get</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">nth</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">nth</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> []&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line">Execution error (<span class="name">IndexOutOfBoundsException</span>) at user/eval<span class="number">320</span> (<span class="name">REPL:1</span>).</span><br><span class="line">null</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">get</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> []&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line"><span class="literal">nil</span></span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>assoc 加线程宏</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="keyword">def</span> <span class="title">a</span> &#123;<span class="symbol">:name</span> <span class="number">123</span>&#125;)</span><br><span class="line">#&#x27;user/a</span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">let</span></span> [a (<span class="name"><span class="built_in">-&gt;</span></span> (<span class="name"><span class="built_in">assoc</span></span> a <span class="symbol">:name</span> <span class="number">8</span>) (<span class="name"><span class="built_in">assoc</span></span> <span class="symbol">:name</span> <span class="number">9</span>))] a)</span><br><span class="line">&#123;<span class="symbol">:name</span> <span class="number">9</span>&#125;</span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">let</span></span> [a (<span class="name"><span class="built_in">assoc</span></span> a <span class="symbol">:name</span> <span class="number">8</span>) a (<span class="name"><span class="built_in">assoc</span></span> a <span class="symbol">:name</span> <span class="number">9</span>)] a)</span><br><span class="line">&#123;<span class="symbol">:name</span> <span class="number">9</span>&#125;</span><br><span class="line"></span><br><span class="line">user=&gt; a</span><br><span class="line">&#123;<span class="symbol">:name</span> <span class="number">123</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>some when</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="name">some</span> #(<span class="name"><span class="built_in">when</span></span> (<span class="name"><span class="built_in">&gt;=</span></span> % <span class="number">3</span>) %) (<span class="name"><span class="built_in">range</span></span>))</span><br><span class="line"><span class="number">3</span></span><br><span class="line">返回集合满足条件的第一项元素</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>map函数</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">def</span> <span class="title">f</span> (<span class="name"><span class="built_in">fn</span></span> [x] (<span class="name"><span class="built_in">*</span></span> <span class="number">3</span> x)))</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">map</span></span> f [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>])</span><br><span class="line">(<span class="number">3</span> <span class="number">6</span> <span class="number">9</span>)</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">map</span></span> f `(<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>))</span><br><span class="line">(<span class="number">3</span> <span class="number">6</span> <span class="number">9</span>)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>map some when</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="built_in">map</span></span> (<span class="name"><span class="built_in">fn</span></span> [item]</span><br><span class="line">    (<span class="name">some</span> #(<span class="name"><span class="built_in">when</span></span> (<span class="name"><span class="built_in">=</span></span> (<span class="symbol">:name</span> item) (<span class="symbol">:name</span> (<span class="name"><span class="built_in">second</span></span> %)))</span><br><span class="line">             (<span class="name"><span class="built_in">first</span></span> %)) query-cols))</span><br><span class="line">    all-expected-cols)</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/zsh/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/14/zsh/" class="post-title-link" itemprop="url">zsh</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-14 00:49:59" itemprop="dateCreated datePublished" datetime="2021-03-14T00:49:59+08:00">2021-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>oh-my-zsh</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zsh -c &quot;$(curl -fsSL &#x27;https://host.mintimate.cn/fileHost/download/MTM1NjkzNzI1OTIxMDg0NjIwOQ==&#x27;)&quot;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry http://mirrors.cloud.tencent.com/npm/</span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
-
-<p><code>https://www.mintimate.cn/</code></p>
-<h5 id="zsh-bash切换"><a href="#zsh-bash切换" class="headerlink" title="zsh bash切换"></a>zsh bash切换</h5><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br><span class="line">chsh -s /bin/bash</span><br><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/presto/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/14/presto/" class="post-title-link" itemprop="url">presto</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-14 00:17:26" itemprop="dateCreated datePublished" datetime="2021-03-14T00:17:26+08:00">2021-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>https://prestodb.io/docs/current/functions/datetime.html</code></p>
-<blockquote>
-<p>presto时间函数</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">current_date</span> <span class="built_in">current_time</span> <span class="built_in">current_timestamp</span> now()</span><br></pre></td></tr></table></figure>
-
-<h4 id="转时间戳"><a href="#转时间戳" class="headerlink" title="转时间戳"></a>转时间戳</h4><blockquote>
-<p>字符串转时间戳</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">cast</span>(<span class="string">&#x27;2019-04-26&#x27;</span> <span class="keyword">as</span> <span class="type">timestamp</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-26</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.000</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">cast</span>(<span class="string">&#x27;2019-04-26 01:22:23&#x27;</span> <span class="keyword">as</span> <span class="type">timestamp</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-26</span> <span class="number">01</span>:<span class="number">22</span>:<span class="number">23.000</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>按照format指定的格式，将字符串string解析成timestamp</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> date_parse(<span class="string">&#x27;2019-04-06&#x27;</span>,<span class="string">&#x27;%Y-%m-%d&#x27;</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-06</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.000</span></span><br><span class="line"><span class="keyword">select</span> date_parse(<span class="string">&#x27;2019-04-06 00:03:55&#x27;</span>,<span class="string">&#x27;%Y-%m-%d %H:%i:%S&#x27;</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-06</span> <span class="number">00</span>:<span class="number">03</span>:<span class="number">55.000</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>bigint 转时间戳</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from_unixtime(create_time)</span><br><span class="line">to_unixtime(<span class="built_in">current_date</span>)</span><br></pre></td></tr></table></figure>
-
-<h4 id="转年月日"><a href="#转年月日" class="headerlink" title="转年月日"></a>转年月日</h4><blockquote>
-<p>时间戳取年月日</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> date_format(<span class="built_in">current_date</span>,<span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br><span class="line"><span class="keyword">select</span> <span class="type">date</span>(<span class="built_in">current_date</span>)</span><br><span class="line"><span class="keyword">select</span> <span class="built_in">cast</span>(<span class="built_in">current_date</span> <span class="keyword">as</span> <span class="type">date</span>)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>字符串转年月日</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="type">date</span>(<span class="built_in">cast</span>(<span class="string">&#x27;2019-04-28 10:28:00&#x27;</span> <span class="keyword">as</span> <span class="type">TIMESTAMP</span>))</span><br><span class="line"><span class="keyword">select</span> <span class="type">date</span>(<span class="string">&#x27;2019-04-28&#x27;</span>)</span><br><span class="line"><span class="keyword">select</span> date_format(<span class="built_in">cast</span>(<span class="string">&#x27;2019-04-28 10:28:00&#x27;</span> <span class="keyword">as</span> <span class="type">TIMESTAMP</span>),<span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br><span class="line"><span class="keyword">select</span> to_date(<span class="string">&#x27;2019-04-28&#x27;</span>,<span class="string">&#x27;yyyy-mm-dd&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>bigint 转年月日</p>
-</blockquote>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">date</span>(from_unixtime(<span class="number">1556380800</span>))</span><br><span class="line"><span class="keyword">select</span> date_format(from_unixtime(<span class="number">1556380800</span>),<span class="string">&#x27;%Y-%m-%d&#x27;</span>)</span><br></pre></td></tr></table></figure>
-
-<h4 id="日期变换：间隔、加减、截取、提取"><a href="#日期变换：间隔、加减、截取、提取" class="headerlink" title="日期变换：间隔、加减、截取、提取"></a>日期变换：间隔、加减、截取、提取</h4><ul>
-<li><p>求时间间隔 date_diff</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">date_diff(unit, timestamp1, timestamp2) → <span class="type">bigint</span></span><br><span class="line"></span><br><span class="line">eg:<span class="keyword">select</span> date_diff(<span class="string">&#x27;day&#x27;</span>,<span class="built_in">cast</span>(<span class="string">&#x27;2019-04-24&#x27;</span> <span class="keyword">as</span> <span class="type">TIMESTAMP</span>),<span class="built_in">cast</span>(<span class="string">&#x27;2019-04-26&#x27;</span> <span class="keyword">as</span> <span class="type">TIMESTAMP</span>))  </span><br><span class="line"><span class="comment">--2</span></span><br></pre></td></tr></table></figure>
-<p>注：与hive差异！！！</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">presto中 date_diff(<span class="string">&#x27;day&#x27;</span>,date1,date2)【后<span class="operator">-</span>前】</span><br><span class="line">hive,mysql中 datediff(date1,date2) 【前<span class="operator">-</span>后】</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>求几天前，几天后 interval、date_add</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">current_date</span>,(<span class="built_in">current_date</span> <span class="operator">-</span> <span class="type">interval</span> <span class="string">&#x27;7&#x27;</span> <span class="keyword">day</span>),date_add(<span class="string">&#x27;day&#x27;</span>, <span class="number">-7</span>, <span class="built_in">current_date</span>)</span><br><span class="line"> <span class="number">2019</span><span class="number">-04</span><span class="number">-28</span> <span class="operator">|</span> <span class="number">2019</span><span class="number">-04</span><span class="number">-21</span> <span class="operator">|</span> <span class="number">2019</span><span class="number">-04</span><span class="number">-21</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">current_date</span>,(<span class="built_in">current_date</span> <span class="operator">+</span> <span class="type">interval</span> <span class="string">&#x27;7&#x27;</span> <span class="keyword">day</span>),date_add(<span class="string">&#x27;day&#x27;</span>, <span class="number">7</span>, <span class="built_in">current_date</span>)</span><br><span class="line"> <span class="number">2019</span><span class="number">-04</span><span class="number">-28</span> <span class="operator">|</span> <span class="number">2019</span><span class="number">-05</span><span class="number">-05</span> <span class="operator">|</span> <span class="number">2019</span><span class="number">-05</span><span class="number">-05</span></span><br></pre></td></tr></table></figure></li>
-<li><p>时间截取函数 date_trunc(unit, x)</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">截取月初</span><br><span class="line"><span class="keyword">select</span> date_trunc(<span class="string">&#x27;month&#x27;</span>,<span class="built_in">current_date</span>)</span><br><span class="line"><span class="number">2019</span><span class="number">-04</span><span class="number">-01</span></span><br><span class="line"></span><br><span class="line">截取年初</span><br><span class="line"><span class="keyword">select</span> date_trunc(<span class="string">&#x27;year&#x27;</span>,<span class="built_in">current_date</span>)</span><br><span class="line"><span class="number">2019</span><span class="number">-01</span><span class="number">-01</span></span><br></pre></td></tr></table></figure></li>
-<li><p>时间提取函数 extract、year、month、day</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">extract</span>(field <span class="keyword">FROM</span> x) → <span class="type">bigint</span>【注：field不带引号！】</span><br><span class="line"><span class="keyword">year</span>(x),<span class="keyword">month</span>(x),<span class="keyword">day</span>(x)</span><br><span class="line"></span><br><span class="line">eg：</span><br><span class="line"><span class="keyword">select</span> </span><br><span class="line">	<span class="built_in">extract</span>(<span class="keyword">year</span> <span class="keyword">from</span> <span class="built_in">current_date</span>),</span><br><span class="line">	<span class="keyword">year</span>(<span class="built_in">current_date</span>),</span><br><span class="line">	<span class="built_in">extract</span>(<span class="keyword">month</span> <span class="keyword">from</span> <span class="built_in">current_date</span>),</span><br><span class="line">	<span class="keyword">month</span>(<span class="built_in">current_date</span>),</span><br><span class="line">	<span class="built_in">extract</span>(<span class="keyword">day</span> <span class="keyword">from</span> <span class="built_in">current_date</span>),</span><br><span class="line">	<span class="keyword">day</span>(<span class="built_in">current_date</span>);</span><br><span class="line"><span class="comment">-------+-------+-------+-------+-------+-------</span></span><br><span class="line">  <span class="number">2019</span> <span class="operator">|</span>  <span class="number">2019</span> <span class="operator">|</span>     <span class="number">4</span> <span class="operator">|</span>     <span class="number">4</span> <span class="operator">|</span>    <span class="number">28</span> <span class="operator">|</span>    <span class="number">28</span></span><br></pre></td></tr></table></figure></li>
-<li><p>转int</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">先转<span class="type">timestamp</span>，再to_unixtime转<span class="type">int</span></span><br><span class="line">to_unixtime(timestamp_col)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/Docker/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/14/Docker/" class="post-title-link" itemprop="url">Docker</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-14 00:01:09" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/Docker-postgres/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/14/Docker-postgres/" class="post-title-link" itemprop="url">Docker-postgres</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-14 00:01:09" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><code>docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:9.6 docker ps docker start 7e0504c6a383</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/" class="post-title-link" itemprop="url">Clojure的并发-Ref和STM</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-06 18:43:16" itemprop="dateCreated datePublished" datetime="2021-03-06T18:43:16+08:00">2021-03-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>clojure处理并发的思路与众不同，采用的是所谓的STM的模型（软事物内存）。你可以将STM想象成数据库，只不过是内存型的，它只支持事物的ACI,也就是原子性，一致性，隔离性，但是不包括持久性，因为状态的保存都在内存里。</p>
-<p>C lojure的并发API分为四种模型：</p>
-<ul>
-<li>管理协作式，同步修改可变状态的Ref</li>
-<li>管理非协作式，同步修改可变状态的Atom</li>
-<li>管理异步修改可变状态的Agent</li>
-<li>管理Thread local变量的Var</li>
-</ul>
-<h2 id="Ref和STM"><a href="#Ref和STM" class="headerlink" title="Ref和STM"></a>Ref和STM</h2><blockquote>
-<p>通过ref函数创建一个可变的引用，指向一个不可变的对象：(ref x)</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">def</span> <span class="title">song</span> (<span class="name"><span class="built_in">ref</span></span> #&#123;&#125;))</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>deref和@ 取引用的内容，解引用使用deref函数，也可以用reader宏@</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="name"><span class="built_in">deref</span></span> song)</span><br><span class="line">#&#123;&#125;</span><br><span class="line">user=&gt; @song</span><br><span class="line">#&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>ref-set和dosync</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">改变引用指向的内容，使用ref-set函数:(<span class="name"><span class="built_in">ref-set</span></span> ref new-value)</span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">ref-set</span></span> song #&#123;<span class="string">&quot;dangerous&quot;</span>&#125;)</span><br><span class="line">Execution error (<span class="name">IllegalStateException</span>) at user/eval<span class="number">1</span> (<span class="name">REPL:1</span>).</span><br><span class="line">No transaction running</span><br><span class="line">这是因为引用是可变的，对状态的更新需要进行保护，传统语言的话可能采用锁，Clojure是采用事务，将更新包装到事务里，这是通过dosync实现的：</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">ref-set</span></span> song #&#123;<span class="string">&quot;dangerous&quot;</span>&#125;))</span><br><span class="line">#&#123;<span class="string">&quot;dangerous&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">dosync的参数接受多个表达式，这些表达式将被包装在一个事物里，事物支持ACI</span><br><span class="line">（<span class="number">1</span>）Atomic，如果你在事务里更新多个Ref，那么这些更新对事务外部来说是一个独立的操作。</span><br><span class="line">（<span class="number">2</span>）Consistent，Ref的更新可以设置 validator，如果某个验证失败，整个事务将回滚。</span><br><span class="line">（<span class="number">3</span>）Isolated，运行中的事务无法看到其他事务部分完成的结果。</span><br><span class="line">dosync更新多个ref</span><br><span class="line">(<span class="keyword">def</span> <span class="title">singer</span> (<span class="name"><span class="built_in">ref</span></span> #&#123;&#125;))</span><br><span class="line">(<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">ref-set</span></span> song #&#123;<span class="string">&quot;Dangerous&quot;</span>&#125;)</span><br><span class="line">               (<span class="name"><span class="built_in">ref-set</span></span> singer #&#123;<span class="string">&quot;MJ&quot;</span>&#125;) )</span><br><span class="line">@song      =&gt;  #&#123;<span class="string">&quot;Dangerous&quot;</span>&#125;</span><br><span class="line">@singer    =&gt;  #&#123;<span class="string">&quot;MJ&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">ref-set</span></span> song (<span class="name"><span class="built_in">conj</span></span> @song <span class="string">&quot;hah&quot;</span>)))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">ref-set</span></span> song (<span class="name"><span class="built_in">conj</span></span> @song <span class="string">&quot;hah&quot;</span>)))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">ref-set</span></span> song (<span class="name"><span class="built_in">conj</span></span> @song <span class="string">&quot;hah&quot;</span>)))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br><span class="line">user=&gt; @song</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span>]</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>alter</p>
-</blockquote>
-<p>完全更新整个引用的值还是比较少见，更常见的更新是根据当前状态更新，例如我们向歌曲集合添加一个歌曲，步骤大概是先查询集合内容，然后往集合里添加歌曲，然后更新整个集合：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(dosync (ref-set song (conj @song &quot;heal the world&quot;)))</span><br><span class="line">(dosync (ref-set song (conj @song &quot;heal the world2&quot;)))</span><br><span class="line">(dosync (ref-set song (conj @song &quot;heal the world3&quot;)))</span><br><span class="line"></span><br><span class="line">(count @song)</span><br></pre></td></tr></table></figure>
-
-<p>查询并更新的操作可以合成一步，这是通过alter函数：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(alter ref update-fn &amp; args)</span><br></pre></td></tr></table></figure>
-
-<p>alter接收一个更新的函数，函数将在更新的时候调用，传入当前状态值并返回新的状态值，因此上面的例子可以改写为：</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">alter</span></span> song conj <span class="string">&quot;heal the world&quot;</span>))</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">alter</span></span> song conj <span class="string">&quot;we&quot;</span>))</span><br><span class="line">[<span class="string">&quot;dangerous&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;hah&quot;</span> <span class="string">&quot;we&quot;</span>]</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p><strong>commute</strong></p>
-</blockquote>
-<p>commute函数是alter的变形，commute顾名思义就是要求update-function是可交换的，它的顺序是可以任意排序。commute的允许的并发程度比alter更高一些，因此性能会更好。但是由于commute要求update-function是可交换的，并且会自动重排序，因此如果你的更新要求顺序性，那么commute是不能接受的,commute仅可用在对顺序性没有要求或者要求很低的场景：例如更新聊天窗口的聊天信息，由于网络延迟的因素和个人介入的因素，聊天信息可以认为是天然排序，因此使用commute还可以接受，更新乱序的可能性很低。<br> 另一个例子就不能使用commute了，如实现一个计数器：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(def counter (ref 0))</span><br></pre></td></tr></table></figure>
-
-<p>实现一个next-counter函数获取计数器的下一个值，我们先使用commute实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(defn next-counter [] (dosync (commute counter inc)))</span><br></pre></td></tr></table></figure>
-
-<p>这个函数很简单，每次调用inc递增counter的值，接下来写个测试用例：启动50个线程并发去获取next counter:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(dotimes [_ 50] (.start (Thread. #(println (next-counter)))))</span><br></pre></td></tr></table></figure>
-
-<p>这段代码稍微解释下，dotimes是重复执行50次，每次启动new并启动一个Thread,这个Thread里干了两件事情：调用next-counter，打印调用结果,第一个版本的next-counter执行下，这是其中一次输出的截取：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line"></span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">28</span><br><span class="line">23</span><br><span class="line">21</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">23</span><br><span class="line">25</span><br><span class="line">28</span><br></pre></td></tr></table></figure>
-
-<p>可以看到有很多的重复数值，这是由于重排序导致事务结束后的值不同，但是你查看counter，确实是50:</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@counter  =&gt; 50</span><br></pre></td></tr></table></figure>
-
-<p>证明更新是没有问题的，问题出在commute的返回值上。</p>
-<p>如果将next-counter修改为alter实现：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(defn next-counter [] (dosync (alter counter inc)))</span><br></pre></td></tr></table></figure>
-
-<p>此时再执行测试用例，可以发现打印结果完全正确了：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">……</span><br><span class="line">39</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">45</span><br><span class="line">27</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">44</span><br><span class="line">48</span><br><span class="line">43</span><br><span class="line">49</span><br><span class="line">40</span><br><span class="line">50</span><br></pre></td></tr></table></figure>
-
-<p>查看counter，也是正确更新到50了：</p>
-<p>@counter =&gt; 50</p>
-<p>最佳实践：<strong>通常情况下，你应该优先使用alter</strong>，除非在遇到明显的性能瓶颈并且对顺序不是那么关心的时候，可以考虑用commute替换。</p>
-<blockquote>
-<p><strong>validator</strong></p>
-</blockquote>
-<p>类似数据库，你也可以为Ref添加“约束”，在数据更新的时候需要通过validator函数的验证，如果验证不通过，整个事务将回滚。添加validator是通过ref函数传入metadata的map实现的，例如我们要求歌曲集合添加的歌曲名称不能为空：</p>
-<p>(def validate-song<br>   (partial every? #(not (nil? %))))</p>
-<p>(def song (ref #{} :validator validate-song))</p>
-<p>validate-song是一个验证函数，partial返回某个函数的半函数（固定了部分参数，部分参数没固定），你可以将partial理解成currying，虽然还是不同的。validate-song调用every?来验证集合内的所有元素都不是nil，其中#(not (nil? %))是一个匿名函数，%指向匿名函数的第一个参数，也就是集合的每个元素。ref指定了validator为validate-song，那么在每次更新song集合的时候都会将新的状态传入validator函数里验证一下，如果返回false，整个事务将回滚：</p>
-<p>(dosync (alter song conj nil))<br>java.lang.IllegalStateException: Invalid reference state (NO_SOURCE_FILE:0)</p>
-<p>更新失败，非法的reference状态，查看song果然还是空的：</p>
-<p>@song =&gt; #{}</p>
-<p>更新正常的值就没有问题：</p>
-<p> (dosync (alter song conj “dangerous”))  =&gt; #{“dangerous”}</p>
-<blockquote>
-<p><strong>ensure</strong></p>
-</blockquote>
-<p>ensure函数是为了保护Ref不会被其他事务所修改，它的主要目的是为了防止所谓的“<strong>写偏序</strong>”(<strong>write skew</strong>)问题。写偏序问题的产生跟STM的实现有关，clojure的STM实现是基于<a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Multiversion_concurrency_control">MVCC(Multiversion Concurrency Control)</a>——多版本并发控制，对一个Ref保存多个版本的状态值，在更新的时候取得当前状态值的一个隔离的snapshot，更新是基于snapshot进行的。那么我们来看下写偏序是怎么产生，以一个比喻来描述：<br> 想象有一个系统用于管理美国最神秘的军事禁区——51区的安全巡逻，你有3个营的士兵，每个营45个士兵，并且你<strong>需要保证总体巡逻的士兵人数不能少于100个人</strong>。假设有一天，有两个指挥官都登录了这个管理系统，他们都想从某个军营里抽走20个士兵，假设指挥官A想从1号军营抽走，指挥官B想要从2号军营抽走士兵，他们同时执行下列操作：</p>
-<p>Admin 1: if ((G1 - 20) + G2 + G3) &gt; 100 then dispatchPatrol</p>
-<p>Admin 2: if (G1 + (G2 - 20) + G3) &gt; 100 then dispatchPatrol</p>
-<p>我们刚才提到，Clojure的更新是基于隔离的snapshot，一个事务的更改无法看到另一个事务更改了部分的结果，因此这两个操作都因为满足(45-20)+45+45=115的约束而得到执行，导致实际抽调走了40个士兵，只剩下95个士兵，低于设定的安全标准100人，这就是写偏序现象。<br> 写偏序的解决就很简单，在执行抽调前加入ensure即可保护ref不被其他事务所修改。ensure比(ref-set ref @ref)允许的并发程度更高一些。</p>
-<h2 id="Atom和缓存"><a href="#Atom和缓存" class="headerlink" title="Atom和缓存"></a>Atom和缓存</h2><p>Ref适用的场景是系统中存在多个相互关联的状态，他们需要一起更新，因此需要通过dosync做事务包装。但是如果你有一个状态变量，不需要跟其他状态变量协作，这时候应该使用Atom了。可以将一个Atom和一个Ref一起在一个事务里更新吗？这没办法做到，如果你需要相互协作，你只能使用Ref。Atom适用的场景是状态是独立，没有依赖，它避免了与其他Ref交互的开销，因此性能会更好，特别是对于读来说。</p>
-<h4 id="定义Atom-采用atom函数，赋予一个初始状态"><a href="#定义Atom-采用atom函数，赋予一个初始状态" class="headerlink" title="定义Atom,采用atom函数，赋予一个初始状态"></a>定义Atom,采用atom函数，赋予一个初始状态</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mem的初始状态定义成一个map</span><br><span class="line">(def mem (atom &#123;&#125;))</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="deref和-取atom的值"><a href="#deref和-取atom的值" class="headerlink" title="deref和@ 取atom的值"></a>deref和@ 取atom的值</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@mem         =&gt; &#123;&#125;</span><br><span class="line">(deref mem)  =&gt; &#123;&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="reset-重新设置atom的值，不关心当前值"><a href="#reset-重新设置atom的值，不关心当前值" class="headerlink" title="reset! 重新设置atom的值，不关心当前值"></a>reset! 重新设置atom的值，不关心当前值</h4><figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="built_in">reset!</span></span> mem &#123;<span class="symbol">:a</span> <span class="number">1</span>&#125;)</span><br></pre></td></tr></table></figure>
-
-<h4 id="swap-如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap-（类似alter"><a href="#swap-如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap-（类似alter" class="headerlink" title="swap! 如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap!（类似alter)"></a>swap! 如果你的更新需要依赖当前的状态值，或者只想更新状态的某个部分，那么就需要使用swap!（类似alter)</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(swap! an-atom f &amp;args)</span><br><span class="line"></span><br><span class="line">swap! 将函数f作用于当前状态值和额外的参数args之上，形成新的状态值，例如我们给mem加上一个keyword:</span><br><span class="line">user=&gt; (swap! mem assoc :b 2)</span><br><span class="line">&#123;:b 2, :a 1&#125;</span><br></pre></td></tr></table></figure>
-
-<h4 id="compare-and-set"><a href="#compare-and-set" class="headerlink" title="compare and set"></a>compare and set</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">类似原子变量AtomicInteger之类，atom也可以做compare and set的操作</span><br><span class="line">(compare-and-set! atom oldValue newValue)</span><br><span class="line"></span><br><span class="line">当且仅当atom的当前状态值等于oldValue的时候，将状态值更新为newValue，并返回一个布尔值表示成功或者失败:</span><br><span class="line">user=&gt; (def c (atom 1))</span><br><span class="line">#&#x27;user/c</span><br><span class="line">user=&gt; (compare-and-set! c 2 3)</span><br><span class="line">false</span><br><span class="line">user=&gt; (compare-and-set! c 1 3)</span><br><span class="line">true</span><br><span class="line">user=&gt; @c</span><br><span class="line">3</span><br></pre></td></tr></table></figure>
-
-<h4 id="缓存和atom"><a href="#缓存和atom" class="headerlink" title="缓存和atom"></a>缓存和atom</h4><ul>
-<li>atom非常适合实现缓存，缓存通常不会跟其他系统状态形成依赖，并且缓存对读的速度要求更高。上面例子中用到的mem其实就是个简单的缓存例子，我们来实现一个putm和getm函数</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">;创建缓存</span><br><span class="line">(defn make-cache [] (atom &#123;&#125;))</span><br><span class="line"></span><br><span class="line">;;放入缓存</span><br><span class="line">(defn putm [cache key value] (swap! cache assoc key value))</span><br><span class="line"></span><br><span class="line">;;取出</span><br><span class="line">(defn getm [cache key] (key @cache))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">   这里key要求是keyword，keyword是类似:a这样的字符序列，你熟悉ruby的话，可以暂时理解成symbol。使用这些API：</span><br><span class="line">user=&gt; (def cache (make-cache))</span><br><span class="line">#&#x27;user/cache</span><br><span class="line">user=&gt; (putm cache :a 1)</span><br><span class="line">&#123;:a 1&#125;</span><br><span class="line">user=&gt; (getm cache :a)</span><br><span class="line">1</span><br><span class="line">user=&gt; (putm cache :b 2)</span><br><span class="line">&#123;:b 2, :a 1&#125;</span><br><span class="line">user=&gt; (getm cache :b)</span><br><span class="line">2</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><strong>memoize</strong>函数作用于函数f，产生一个新函数，新函数内部保存了一个缓存，缓存从参数到结果的映射。第一次调用的时候，发现缓存没有，就会调用f去计算实际的结果，并放入内部的缓存；下次调用同样的参数的时候，就直接从缓存中取，而不用再次调用f，从而达到提升计算效率的目的。<br>memoize的实现就是基于atom，查看源码：</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">(defn memoize</span><br><span class="line">  [f]</span><br><span class="line">  (let [mem (atom &#123;&#125;)]</span><br><span class="line">    (fn [&amp; args]</span><br><span class="line">      (if-let [e (find @mem args)]</span><br><span class="line">        (val e)</span><br><span class="line">        (let [ret (apply f args)]</span><br><span class="line">          (swap! mem assoc args ret)</span><br><span class="line">          ret)))))</span><br><span class="line"></span><br><span class="line">内部的缓存名为mem，memoize返回的是一个匿名函数，它接收原有的f函数的参数，if-let判断绑定的变量e是否存在，变量e是通过find从缓存中查询args得到的项，如果存在的话，调用val得到真正的结果并返回；如果不存在，那么使用apply函数将f作用于参数列表之上，计算出结果，并利用swap!将结果加入mem缓存，返回计算结果。</span><br></pre></td></tr></table></figure>
-
-<h4 id="性能测试"><a href="#性能测试" class="headerlink" title="性能测试"></a>性能测试</h4><p>使用atom实现一个计数器，和使用java.util.concurrent.AtomicInteger做计数器，做一个性能比较，各启动100个线程，每个线程执行100万次原子递增，计算各自的耗时，测试程序如下</p>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="built_in">ns</span></span> atom-perf)</span><br><span class="line">(<span class="name"><span class="built_in">import</span></span> &#x27;java.util.concurrent.atomic.AtomicInteger)</span><br><span class="line">(<span class="name"><span class="built_in">import</span></span> &#x27;java.util.concurrent.CountDownLatch)</span><br><span class="line"></span><br><span class="line">(<span class="keyword">def</span> <span class="title">a</span> (<span class="name">AtomicInteger.</span> <span class="number">0</span>))</span><br><span class="line">(<span class="keyword">def</span> <span class="title">b</span> (<span class="name"><span class="built_in">atom</span></span> <span class="number">0</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment">;;为了性能，给java加入type hint</span></span><br><span class="line">(<span class="keyword">defn</span> <span class="title">java-inc</span> [#^AtomicInteger counter] (<span class="name">.incrementAndGet</span> counter))</span><br><span class="line">(<span class="keyword">defn</span> <span class="title">countdown-latch</span> [#^CountDownLatch latch] (<span class="name">.countDown</span> latch))</span><br><span class="line"></span><br><span class="line"><span class="comment">;;单线程执行缓存次数</span></span><br><span class="line">(<span class="keyword">def</span> <span class="title">max_count</span> <span class="number">1000000</span>)</span><br><span class="line"><span class="comment">;;线程数 </span></span><br><span class="line">(<span class="keyword">def</span> <span class="title">thread_count</span> <span class="number">100</span>)</span><br><span class="line"></span><br><span class="line">(<span class="keyword">defn</span> <span class="title">benchmark</span> [fun]</span><br><span class="line">  (<span class="name"><span class="built_in">let</span></span> [ latch (<span class="name">CountDownLatch.</span> thread_count)  <span class="comment">;;关卡锁</span></span><br><span class="line">         start (<span class="name">System/currentTimeMillis</span>) ]     <span class="comment">;;启动时间</span></span><br><span class="line">       (<span class="name"><span class="built_in">dotimes</span></span> [_ thread_count] (<span class="name">.start</span> (<span class="name">Thread.</span> #(<span class="name"><span class="built_in">do</span></span> (<span class="name"><span class="built_in">dotimes</span></span> [_ max_count] (<span class="name">fun</span>)) (<span class="name">countdown-latch</span> latch))))) </span><br><span class="line">       (<span class="name">.await</span> latch)</span><br><span class="line">       (<span class="name"><span class="built_in">-</span></span> (<span class="name">System/currentTimeMillis</span>) start)))</span><br><span class="line">         </span><br><span class="line"></span><br><span class="line">(<span class="name">println</span> <span class="string">&quot;atom:&quot;</span> (<span class="name">benchmark</span> #(<span class="name"><span class="built_in">swap!</span></span> b inc)))</span><br><span class="line">(<span class="name">println</span> <span class="string">&quot;AtomicInteger:&quot;</span> (<span class="name">benchmark</span> #(<span class="name">java-inc</span> a)))</span><br><span class="line"></span><br><span class="line">(<span class="name">println</span> (<span class="name">.get</span> a))</span><br><span class="line">(<span class="name">println</span> @b)</span><br></pre></td></tr></table></figure>
-
-<p>默认clojure调用java都是通过反射，加入type hint之后编译的字节码就跟java编译器的一致，为了比较公平，定义了java-inc用于调用AtomicInteger.incrementAndGet方法，定义countdown-latch用于调用CountDownLatch.countDown方法，两者都为参数添加了type hint。如果不采用type hint，AtomicInteger反射调用的效率是非常低的。</p>
-<p>测试下来，在我的ubuntu上，AtomicInteger还是占优，基本上比atom的实现快上一倍：</p>
-<p>atom: 9002<br>AtomicInteger: 4185<br>100000000<br>100000000</p>
-<p>按~~照我的理解，这是由于AtomicInteger调用的是native的方法，基于硬件原语做cas，而atom则是用户空间内的clojure自己做的CAS，两者的性能有差距不出意料之外。</p>
-<p>~~看了源码，Atom是基于java.util.concurrent.atomic.AtomicReference实现的，调用的方法是</p>
-<p> public final boolean compareAndSet(V expect, V update) {<br>    return unsafe.compareAndSwapObject(this, valueOffset, expect, update);<br>  }</p>
-<p>而AtomicInteger调用的方法是：</p>
-<p>  public final boolean compareAndSet(int expect, int update) {<br>  return unsafe.compareAndSwapInt(this, valueOffset, expect, update);<br>  }</p>
-<p>两者的效率差距有这么大吗？暂时存疑。</p>
-<h2 id="Agent和Actor"><a href="#Agent和Actor" class="headerlink" title="Agent和Actor"></a>Agent和Actor</h2><p>除了用于协调同步的Ref，独立同步的Ref，还有一类非常常见的需求：你可能希望状态的更新是异步，你通常不关心更新的结果，这时候你可以考虑下使用Agent。</p>
-<h4 id="创建agent"><a href="#创建agent" class="headerlink" title="创建agent"></a>创建agent</h4><blockquote>
-<p>通过agent函数你就可以创建一个agent，指向一个不可变的初始状态。</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (def counter (agent 0))</span><br><span class="line">#&#x27;user/counter</span><br><span class="line"></span><br><span class="line">user=&gt; counter</span><br><span class="line">#&lt;Agent@9444d1: 0&gt;</span><br></pre></td></tr></table></figure>
-
-<h4 id="取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者-宏"><a href="#取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者-宏" class="headerlink" title="取agent的值，这跟Ref和Atom没啥两样，都是通过deref或者@宏"></a><strong>取agent的值</strong>，这跟Ref和Atom没啥两样，都是通过deref或者@宏</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; @counter</span><br><span class="line">0</span><br><span class="line">user=&gt; (deref counter)</span><br><span class="line">0</span><br></pre></td></tr></table></figure>
-
-<h4 id="更新agent，通过send或者send-off函数给agent发送任务去更新agent"><a href="#更新agent，通过send或者send-off函数给agent发送任务去更新agent" class="headerlink" title="更新agent，通过send或者send-off函数给agent发送任务去更新agent"></a><strong>更新agent</strong>，通过send或者send-off函数给agent发送任务去更新agent</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (send counter inc)</span><br><span class="line">#&lt;Agent@9444d1: 0&gt;</span><br></pre></td></tr></table></figure>
-
-<p>send返回agent对象，内部的值仍然是0，而非inc递增之后的1，这是因为send是异步发送，更新是在另一个线程执行，两个线程(REPL主线程和更新任务的线程)的执行顺序没有同步，显示什么取决于两者谁更快。更新肯定是发生了，查看counter的值：</p>
-<p>user=&gt; @counter<br>1</p>
-<p>  果然更新到了1了。send的方法签名：</p>
-<p>(send a f &amp; args)</p>
-<p>  其中f是更新的函数，它的定义如下：</p>
-<p>(f state-of-agent &amp; args)</p>
-<p>  也就是它会在第一个参数接收当前agent的状态，而args是send附带的参数。</p>
-<p>  还有个方法，send-off，它的作用于send类似：</p>
-<p>user=&gt; (send-off counter inc)<br>#&lt;Agent@9444d1: 1&gt;<br>user=&gt; @counter<br>2</p>
-<p>  send和send-off的区别在于，send是将任务交给一个<strong>固定大小的线程池</strong>执行</p>
-<p>final public static ExecutorService pooledExecutor =<br>    Executors.newFixedThreadPool(2 + Runtime.getRuntime().availableProcessors());</p>
-<p>  默认线程池大小是<strong>CPU核数加上2</strong>。因此<strong>send执行的任务最好不要有阻塞的操作</strong>。而send-off则使用没有大小限制（取决于内存）的线程池：</p>
-<p>final public static ExecutorService soloExecutor = Executors.newCachedThreadPool();</p>
-<p>  因此，<strong>send-off比较适合任务有阻塞的操作</strong>，如IO读写之类。请注意，<strong>所有的agent是共用这些线程池</strong>，这从这些线程池的定义看出来，都是静态变量。</p>
-<h4 id="异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数："><a href="#异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数：" class="headerlink" title="异步转同步，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数："></a><strong>异步转同步</strong>，刚才提到send和send-off都是异步将任务提交给线程池去处理，如果你希望同步等待结果返回，那么可以使用await函数：</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(do (send counter inc) (await counter) (println @counter))</span><br></pre></td></tr></table></figure>
-
-<p>send一个任务之后，调用await等待agent所有派发的更新任务结束，然后打印agent的值。await是阻塞当前线程，直到至今为止所有任务派发执行完毕才返回。await没有超时，会一直等待直到条件满足，await-for则可以接受等待的超时时间，如果超过指定时间没有返回，则返回nil，否则返回结果。</p>
-<p> (do (send counter inc) (await-for 100 counter) (println @counter))</p>
-<p>await-for接受的单位是毫秒。</p>
-<h4 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h4><p>agent也可以跟Ref和Atom一样设置validator，用于约束验证。由于agent的更新是异步的，你不知道更新的时候agent是否发生异常，只有等到你去取值或者更新的时候才能发现：</p>
-<p>user=&gt; (def counter (agent 0 :validator number?))<br>#‘user/counter</p>
-<p>user=&gt; (send counter (fn[_] “foo”))<br>#&lt;clojure.lang.Agent@4de8ce62: 0&gt;</p>
-<p>  强制要求counter的值是数值类型，第二个表达式我们给counter发送了一个更新任务，想将状态更新为字符串”foo”，由于是异步更新，返回的结果可能没有显示异常，当你取值的时候，问题出现了：</p>
-<p>user=&gt; @counter<br>java.lang.Exception: Agent has errors (NO_SOURCE_FILE:0)</p>
-<p> 告诉你agent处于不正常的状态，如果你想获取详细信息，可以通过agent-errors函数：</p>
-<p>user=&gt; (.printStackTrace (agent-errors counter))<br>java.lang.IllegalArgumentException: No matching field found: printStackTrace for class clojure.lang.PersistentList (NO_SOURCE_FILE:0)</p>
-<p>  你可以恢复agent到前一个正常的状态，通过clear-agent-errors函数：</p>
-<p>user=&gt; (clear-agent-errors counter)<br>nil<br>user=&gt; @counter<br>0</p>
-<h4 id="加入事物"><a href="#加入事物" class="headerlink" title="加入事物"></a>加入事物</h4><p>agent跟atom不一样，agent可以加入事务，在事务里调用send发送一个任务，当事务成功的时候该任务将只会被发送一次，最多最少都一次。利用这个特性，我们可以实现在事务操作的时候写文件，达到ACID中的D——持久性的目的:</p>
-<p>(def backup-agent (agent “output/messages-backup.clj” ))<br>(def messages (ref []))<br>(use ‘[clojure.contrib.duck-streams :only (spit)])<br>(defn add-message-with-backup [msg]<br>    (dosync<br>      (let [snapshot (commute messages conj msg)]<br>        (send-off backup-agent (fn [filename]<br>                    (spit filename snapshot)<br>                    filename))<br>      snapshot)))</p>
-<p>定义了一个backup-agent用于保存消息，add-message-with-backup函数首先将状态保存到messages，这是个普通的Ref，然后调用send-off给backup-agent一个任务：</p>
-<p> (fn [filename]<br>     (spit filename snapshot)<br>     filename)</p>
-<p>这个任务是一个匿名函数，它利用spit打开文件，写入当前的快照，并且关闭文件，文件名来自backup-agent的状态值。注意到，我们是用send-off，send-off利用cache线程池，哪怕阻塞也没关系。</p>
-<p>利用事务加上一个backup-agent可以实现类似数据库的ACID，但是还是不同的，主要区别在于<strong>backup-agent的更新是异步，并不保证一定写入文件</strong>，因此持久性也没办法得到保证。</p>
-<h4 id="关闭线程池"><a href="#关闭线程池" class="headerlink" title="关闭线程池"></a>关闭线程池</h4><p>前面提到agent的更新都是交给线程池去处理，在系统关闭的时候你需要关闭这两个线程吃，通过shutdown-agents方法，你再添加任务将被拒绝：</p>
-<p>user=&gt; (shutdown-agents)<br>nil<br>user=&gt; (send counter inc)<br>java.util.concurrent.RejectedExecutionException (NO_SOURCE_FILE:0)<br>user=&gt; (def counter (agent 0))<br>#‘user/counter<br>user=&gt; (send counter inc)<br>java.util.concurrent.RejectedExecutionException (NO_SOURCE_FILE:0)</p>
-<p>哪怕我重新创建了counter，提交任务仍然被拒绝，进一步证明这些*<strong>*线程池是全局共享**</strong>的。</p>
-<h4 id="原理浅析"><a href="#原理浅析" class="headerlink" title="原理浅析"></a>原理浅析</h4><p>前文其实已经将agent的实现原理大体都说了，agent本身只是个普通的java对象，它的内部维持一个状态和一个队列：</p>
-<p>  volatile Object state;<br>  AtomicReference<IPersistentStack> q = new AtomicReference(PersistentQueue.EMPTY);</p>
-<p>任务提交的时候，是封装成Action对象，添加到此队列</p>
-<p>  public Object dispatch(IFn fn, ISeq args, boolean solo) {<br>    if (errors != null) {<br>      throw new RuntimeException(“Agent has errors”, (Exception) RT.first(errors));<br>    }<br>    //封装成action对象<br>    Action action = new Action(this, fn, args, solo);<br>    dispatchAction(action);</p>
-<p>​    return this;<br>  }</p>
-<p>  static void dispatchAction(Action action) {<br>    LockingTransaction trans = LockingTransaction.getRunning();<br>    // 有事务，加入事务<br>    if (trans != null)<br>      trans.enqueue(action);<br>    else if (nested.get() != null) {<br>      nested.set(nested.get().cons(action));<br>    }<br>    else {<br>      // 入队<br>      action.agent.enqueue(action);<br>    }<br>  }</p>
-<p>send和send-off都是调用Agent的dispatch方法，只是两者的参数不一样，dispatch的第二个参数 solo决定了是使用哪个线程池处理action:</p>
-<p>(defn send<br> [#^clojure.lang.Agent a f &amp; args]<br>  (. a (dispatch f args false)))</p>
-<p>(defn send-off<br> [#^clojure.lang.Agent a f &amp; args]<br>  (. a (dispatch f args true)))</p>
-<p>send-off将solo设置为true，当为true的时候使用cache线程池：</p>
-<p>  final public static ExecutorService soloExecutor = Executors.newCachedThreadPool();</p>
-<p>  final static ThreadLocal<IPersistentVector> nested = new ThreadLocal<IPersistentVector>();</p>
-<p>​    void execute() {<br>​      if (solo)<br>​        soloExecutor.execute(this);<br>​      else<br>​        pooledExecutor.execute(this);<br>​    }</p>
-<p>执行的时候调用更新函数并设置新的状态：</p>
-<p>try {<br>          Object oldval = action.agent.state;<br>          Object newval = action.fn.applyTo(RT.cons(action.agent.state, action.args));<br>          action.agent.setState(newval);<br>          action.agent.notifyWatches(oldval, newval);<br>        }<br>        catch (Throwable e) {<br>          // todo report/callback<br>          action.agent.errors = RT.cons(e, action.agent.errors);<br>          hadError = true;<br>        }</p>
-<h4 id="跟actor的比较"><a href="#跟actor的比较" class="headerlink" title="跟actor的比较"></a>跟actor的比较</h4><p>Agent跟Actor有一个显著的不同，agent的action来自于别人发送的任务附带的更新函数，而actor的action则是自身逻辑的一部分。因此，如果想用agent实现actor模型还是相当困难的，下面是我的一个尝试：</p>
-<p>(ns actor)</p>
-<p>(defn receive [&amp; args]<br>  (apply hash-map args))<br>(defn self [] <em>agent</em>)</p>
-<p>(defn spawn [recv-map]<br>  (agent recv-map))</p>
-<p>(defn ! [actor msg]<br>  (send actor #(apply (get %1 %2) (vector %2)) msg))<br>;;启动一个actor<br>(def actor (spawn<br>       (receive :hello #(println “receive “%))))<br>;;发送消息 hello<br>(! actor :hello)</p>
-<p>  利用spawn启动一个actor，其实本质上是一个agent，而发送通过感叹号!，给agent发送一个更新任务，它从recv-map中查找消息对应的处理函数并将消息作为参数来执行。难点在于消息匹配，匹配这种简单类型的消息没有问题，但是如果匹配用到变量，暂时没有想到好的思路实现，例如实现两个actor的ping/pong。</p>
-<p><a target="_blank" rel="noopener" href="http://www.blogjava.net/killme2008/archive/2010/07/archive/2010/07/archive/2010/07/archive/2010/07/14/326027.html">http://www.blogjava.net/killme2008/archive/2010/07/archive/2010/07/archive/2010/07/archive/2010/07/14/326027.html</a></p>
-
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/30/Clojure%E6%97%A5%E5%B8%B8api/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
       
     </div>
 
@@ -1093,7 +634,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1163,6 +704,18 @@
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
   </nav>
 </div>
 
@@ -1192,8 +745,18 @@
     <i class="fa fa-heart"></i>
   </span>
   <span class="author" itemprop="copyrightHolder">John Doe</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+    <span title="站点总字数">22k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+    <span title="站点阅读时长">20 分钟</span>
 </div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://muse.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
 
         
