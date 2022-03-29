@@ -22,13 +22,13 @@
 
   <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:url" content="http://example.com/page/2/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/">
+<link rel="canonical" href="http://example.com/page/2/">
 
 
 <script id="page-configurations">
@@ -188,7 +188,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/29/SpringMvc%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/zsh/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -202,91 +202,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2022/03/29/SpringMvc%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">SpringMvc请求参数</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2022-03-29 16:31:27 / 修改时间：16:37:48" itemprop="dateCreated datePublished" datetime="2022-03-29T16:31:27+08:00">2022-03-29</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>722</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Json方式请求接口数据"><a href="#Json方式请求接口数据" class="headerlink" title="Json方式请求接口数据"></a>Json方式请求接口数据</h4><p><code>使用@RequestBody注解的对象请求参数，当前类存在有惨构造器，且没有默认的无参构造器时， 此时只能接收有惨构造器中的请求参数，其他不在构造器中的参数值均为空</code></p>
-<p>#####解决方法:手动增加一个无参构造器，此时参数能正常接收到请求的值</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class ContractSettleConfigDetailVo &#123;</span><br><span class="line">    private Long cfgId;</span><br><span class="line">    private Long supplierContractSettleCfgId;</span><br><span class="line">    private SupplierContractSettlementConfig baseConfig;</span><br><span class="line">    private SupplierContractSettlementConfigDetail configDetail;</span><br><span class="line">    private List&lt;SupplierContractSettlementConfigRateRebate&gt; rateRebateList;</span><br><span class="line"></span><br><span class="line">    public ContractSettleConfigDetailVo() &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public ContractSettleConfigDetailVo(SupplierContractSettlementConfigDetail configDetail, List&lt;SupplierContractSettlementConfigRateRebate&gt; rateRebateList) &#123;</span><br><span class="line">        this.configDetail = configDetail;</span><br><span class="line">        this.rateRebateList = rateRebateList;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/29/SpringMvc%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/20/hello-world/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/20/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2021/03/14/zsh/" class="post-title-link" itemprop="url">zsh</a>
         </h2>
 
         <div class="post-meta">
@@ -296,100 +212,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2022-03-20 13:25:12" itemprop="dateCreated datePublished" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>367</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/20/hello-world/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/18/hexo%E7%9B%B8%E5%85%B3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/18/hexo%E7%9B%B8%E5%85%B3/" class="post-title-link" itemprop="url">hexo一键部署</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-18 23:26:39" itemprop="dateCreated datePublished" datetime="2022-03-18T23:26:39+08:00">2022-03-18</time>
+              <time title="创建时间：2021-03-14 00:49:59" itemprop="dateCreated datePublished" datetime="2021-03-14T00:49:59+08:00">2021-03-14</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 18:34:29" itemprop="dateModified" datetime="2022-03-20T18:34:29+08:00">2022-03-20</time>
+                <time title="修改时间：2022-03-20 18:35:13" itemprop="dateModified" datetime="2022-03-20T18:35:13+08:00">2022-03-20</time>
               </span>
 
           <br>
@@ -398,221 +228,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>249</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li>hexo new ‘hexo一键部署’</li>
-<li>hexo clean &amp;&amp; hexo g</li>
-<li>hexo s</li>
-</ul>
-<hr>
-<p>hexo clean g -d</p>
-<ul>
-<li>hexo deploy</li>
-</ul>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo clean &amp; hexo g &amp; hexo s</span><br></pre></td></tr></table></figure>
-
-
-<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">    ~/csiizhur.github.io  on   hexo ?2  hexo clean &amp;&amp; hexo g </span><br><span class="line">    ~/csiizhur.github.io  on   hexo ?2  hexo s</span><br><span class="line">    ~/csiizhur.github.io  on   hexo ?2  hexo d</span><br></pre></td></tr></table></figure>
-
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/18/hexo%E7%9B%B8%E5%85%B3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2022/03/18/git%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2022/03/18/git%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/" class="post-title-link" itemprop="url">git相关问题记录.md</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2022-03-18 22:37:29" itemprop="dateCreated datePublished" datetime="2022-03-18T22:37:29+08:00">2022-03-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 18:34:29" itemprop="dateModified" datetime="2022-03-20T18:34:29+08:00">2022-03-20</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/clojure/" itemprop="url" rel="index"><span itemprop="name">clojure</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>384</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h5 id="版本冲突导致文件无法提交"><a href="#版本冲突导致文件无法提交" class="headerlink" title="版本冲突导致文件无法提交"></a>版本冲突导致文件无法提交</h5><blockquote>
-<p>Your local changes to the following files would be overwritten by merge</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git stash</span><br><span class="line">git pull origin master</span><br><span class="line">git stash pop</span><br></pre></td></tr></table></figure>
-
-
-<blockquote>
-<p>将当前分支推送到origin主机的对应分支</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>当前分支只有一个追踪分支，那么主机名都可以省略</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>当前分支与多个主机存在追踪关系</p>
-</blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git push -u origin master #将本地的master分支推送到origin主机，同时指定origin为默认主机，后面就可以不加任何参数使用git push</span><br><span class="line"> simple方式:不带任何参数的git push，默认只推送当前分支</span><br><span class="line"> matching方式:会推送所有有对应的远程分支的本地分支</span><br><span class="line">Git 2.0版本之前，默认采用matching方法，现在改为默认采用simple方式</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2022/03/18/git%E7%9B%B8%E5%85%B3%E9%97%AE%E9%A2%98%E8%AE%B0%E5%BD%95/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/30/Clojure%E6%97%A5%E5%B8%B8api/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="John Doe">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/03/30/Clojure%E6%97%A5%E5%B8%B8api/" class="post-title-link" itemprop="url">Clojure日常api</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-03-30 21:49:30" itemprop="dateCreated datePublished" datetime="2021-03-30T21:49:30+08:00">2021-03-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2022-03-20 18:34:01" itemprop="dateModified" datetime="2022-03-20T18:34:01+08:00">2022-03-20</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>282</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -632,32 +248,398 @@
 
       
           <blockquote>
-<p>添加元素 volatile!</p>
+<p>oh-my-zsh</p>
 </blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">def</span> <span class="title">rows</span> (<span class="name">volatile!</span> []))</span><br><span class="line">user=&gt; (<span class="name">vswap!</span> rows conj [&#x27;安徽&#x27; &#x27;合肥&#x27; &#x27;肥西&#x27;])</span><br><span class="line">[[安徽&#x27; 合肥&#x27; 肥西&#x27;]]</span><br><span class="line">user=&gt; @rows</span><br><span class="line">[[安徽&#x27; 合肥&#x27; 肥西&#x27;]]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">(<span class="keyword">def</span> <span class="title">row-count</span> (<span class="name">volatile!</span> <span class="number">0</span>))</span><br><span class="line">(<span class="name"><span class="built_in">dec</span></span> (<span class="name">vswap!</span> row-count inc))</span><br><span class="line">@row-count</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zsh -c &quot;$(curl -fsSL &#x27;https://host.mintimate.cn/fileHost/download/MTM1NjkzNzI1OTIxMDg0NjIwOQ==&#x27;)&quot;</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>替换Vec第一个元素的值</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="built_in">assoc</span></span> one_avg <span class="number">0</span> <span class="string">&quot;汇总&quot;</span>)</span><br><span class="line"></span><br><span class="line">(<span class="keyword">def</span> <span class="title">avg</span> (<span class="string">&quot;/&quot;</span> <span class="string">&quot;/&quot;</span> <span class="string">&quot;/&quot;</span> <span class="string">&quot;/&quot;</span> <span class="number">0.2088M</span> <span class="number">1.1259M</span> <span class="number">0.9171M</span> <span class="number">0.2088M</span> <span class="string">&quot;/&quot;</span> <span class="number">0.9171M</span>))</span><br><span class="line">(<span class="name"><span class="built_in">assoc</span></span> (<span class="name"><span class="built_in">vec</span></span> avg) <span class="number">0</span> <span class="string">&quot;汇总&quot;</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm config set registry http://mirrors.cloud.tencent.com/npm/</span><br><span class="line">npm config get registry</span><br></pre></td></tr></table></figure>
 
+<p><code>https://www.mintimate.cn/</code></p>
 <blockquote>
-<p>Reverse函数</p>
+<p>zsh bash切换</p>
 </blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="name"><span class="built_in">reverse</span></span> [<span class="number">1</span> <span class="number">2</span>])</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chsh -s /bin/zsh</span><br><span class="line">chsh -s /bin/bash</span><br><span class="line">cat /etc/shells</span><br></pre></td></tr></table></figure>
 
-<blockquote>
-<p>conj cons into</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="name"><span class="built_in">conj</span></span> [<span class="number">1</span> <span class="number">2</span>] <span class="number">3</span>)</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]</span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">cons</span></span> <span class="number">3</span> [<span class="number">1</span> <span class="number">2</span>])</span><br><span class="line">(<span class="number">3</span> <span class="number">1</span> <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">into</span></span> [<span class="number">1</span> <span class="number">2</span>] [<span class="number">3</span>])</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
-
-<blockquote>
-<p>nth get</p>
-</blockquote>
-<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="name"><span class="built_in">get</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">nth</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> [<span class="number">1</span> <span class="number">2</span> <span class="number">3</span>]&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line"><span class="number">1</span></span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">nth</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> []&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line">Execution error (<span class="name">IndexOutOfBoundsException</span>) at user/eval<span class="number">320</span> (<span class="name">REPL:1</span>).</span><br><span class="line">null</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">get</span></span> (<span class="symbol">:rows</span> (<span class="symbol">:data</span> &#123;<span class="symbol">:data</span> &#123;<span class="symbol">:rows</span> []&#125;&#125;)) <span class="number">0</span>)</span><br><span class="line"><span class="literal">nil</span></span><br></pre></td></tr></table></figure>
           <!--noindex-->
             <div class="post-button">
-              <a class="btn" href="/2021/03/30/Clojure%E6%97%A5%E5%B8%B8api/#more" rel="contents">
+              <a class="btn" href="/2021/03/14/zsh/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/presto/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/14/presto/" class="post-title-link" itemprop="url">presto</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-14 00:17:26" itemprop="dateCreated datePublished" datetime="2021-03-14T00:17:26+08:00">2021-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 18:34:29" itemprop="dateModified" datetime="2022-03-20T18:34:29+08:00">2022-03-20</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><code>https://prestodb.io/docs/current/functions/datetime.html</code></p>
+<blockquote>
+<p>presto时间函数</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">current_date</span> <span class="built_in">current_time</span> <span class="built_in">current_timestamp</span> now()</span><br></pre></td></tr></table></figure>
+
+<h4 id="转时间戳"><a href="#转时间戳" class="headerlink" title="转时间戳"></a>转时间戳</h4><blockquote>
+<p>字符串转时间戳</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="built_in">cast</span>(<span class="string">&#x27;2019-04-26&#x27;</span> <span class="keyword">as</span> <span class="type">timestamp</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-26</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.000</span></span><br><span class="line"><span class="keyword">select</span> <span class="built_in">cast</span>(<span class="string">&#x27;2019-04-26 01:22:23&#x27;</span> <span class="keyword">as</span> <span class="type">timestamp</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-26</span> <span class="number">01</span>:<span class="number">22</span>:<span class="number">23.000</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>按照format指定的格式，将字符串string解析成timestamp</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> date_parse(<span class="string">&#x27;2019-04-06&#x27;</span>,<span class="string">&#x27;%Y-%m-%d&#x27;</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-06</span> <span class="number">00</span>:<span class="number">00</span>:<span class="number">00.000</span></span><br><span class="line"><span class="keyword">select</span> date_parse(<span class="string">&#x27;2019-04-06 00:03:55&#x27;</span>,<span class="string">&#x27;%Y-%m-%d %H:%i:%S&#x27;</span>) <span class="number">2019</span><span class="number">-04</span><span class="number">-06</span> <span class="number">00</span>:<span class="number">03</span>:<span class="number">55.000</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>bigint 转时间戳</p>
+</blockquote>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from_unixtime(create_time)</span><br><span class="line">to_unixtime(<span class="built_in">current_date</span>)</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/14/presto/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/Docker-postgres/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/14/Docker-postgres/" class="post-title-link" itemprop="url">Docker-postgres</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-14 00:01:09" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 18:34:29" itemprop="dateModified" datetime="2022-03-20T18:34:29+08:00">2022-03-20</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>128</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <blockquote>
+<p>docker构建postgres实例</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name postgres -e POSTGRES_PASSWORD=postgres -p 5432:5432 -d postgres:9.6</span><br><span class="line">docker ps</span><br><span class="line">docker start 7e0504c6a383</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/14/Docker-postgres/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/14/Docker/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/14/Docker/" class="post-title-link" itemprop="url">Docker</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-14 00:01:09" itemprop="dateCreated datePublished" datetime="2021-03-14T00:01:09+08:00">2021-03-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 13:25:12" itemprop="dateModified" datetime="2022-03-20T13:25:12+08:00">2022-03-20</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/" class="post-title-link" itemprop="url">Clojure的并发-Ref和STM</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-03-06 18:43:16" itemprop="dateCreated datePublished" datetime="2021-03-06T18:43:16+08:00">2021-03-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-03-20 18:34:29" itemprop="dateModified" datetime="2022-03-20T18:34:29+08:00">2022-03-20</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>13k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>12 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>clojure处理并发的思路与众不同，采用的是所谓的STM的模型（软事物内存）。你可以将STM想象成数据库，只不过是内存型的，它只支持事物的ACI,也就是原子性，一致性，隔离性，但是不包括持久性，因为状态的保存都在内存里。</p>
+<p>C lojure的并发API分为四种模型：</p>
+<ul>
+<li>管理协作式，同步修改可变状态的Ref</li>
+<li>管理非协作式，同步修改可变状态的Atom</li>
+<li>管理异步修改可变状态的Agent</li>
+<li>管理Thread local变量的Var</li>
+</ul>
+<h2 id="Ref和STM"><a href="#Ref和STM" class="headerlink" title="Ref和STM"></a>Ref和STM</h2><blockquote>
+<p>通过ref函数创建一个可变的引用，指向一个不可变的对象：(ref x)</p>
+</blockquote>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">def</span> <span class="title">song</span> (<span class="name"><span class="built_in">ref</span></span> #&#123;&#125;))</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>deref和@ 取引用的内容，解引用使用deref函数，也可以用reader宏@</p>
+</blockquote>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">user=&gt; (<span class="name"><span class="built_in">deref</span></span> song)</span><br><span class="line">#&#123;&#125;</span><br><span class="line">user=&gt; @song</span><br><span class="line">#&#123;&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>ref-set和dosync</p>
+</blockquote>
+<figure class="highlight clojure"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">改变引用指向的内容，使用ref-set函数:(<span class="name"><span class="built_in">ref-set</span></span> ref new-value)</span><br><span class="line"></span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">ref-set</span></span> song #&#123;<span class="string">&quot;dangerous&quot;</span>&#125;)</span><br><span class="line">Execution error (<span class="name">IllegalStateException</span>) at user/eval<span class="number">1</span> (<span class="name">REPL:1</span>).</span><br><span class="line">No transaction running</span><br><span class="line">这是因为引用是可变的，对状态的更新需要进行保护，传统语言的话可能采用锁，Clojure是采用事务，将更新包装到事务里，这是通过dosync实现的：</span><br><span class="line">user=&gt; (<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">ref-set</span></span> song #&#123;<span class="string">&quot;dangerous&quot;</span>&#125;))</span><br><span class="line">#&#123;<span class="string">&quot;dangerous&quot;</span>&#125;</span><br><span class="line"></span><br><span class="line">dosync的参数接受多个表达式，这些表达式将被包装在一个事物里，事物支持ACI</span><br><span class="line">（<span class="number">1</span>）Atomic，如果你在事务里更新多个Ref，那么这些更新对事务外部来说是一个独立的操作。</span><br><span class="line">（<span class="number">2</span>）Consistent，Ref的更新可以设置 validator，如果某个验证失败，整个事务将回滚。</span><br><span class="line">（<span class="number">3</span>）Isolated，运行中的事务无法看到其他事务部分完成的结果。</span><br><span class="line">dosync更新多个ref</span><br><span class="line">(<span class="keyword">def</span> <span class="title">singer</span> (<span class="name"><span class="built_in">ref</span></span> #&#123;&#125;))</span><br><span class="line">(<span class="name"><span class="built_in">dosync</span></span> (<span class="name"><span class="built_in">ref-set</span></span> song #&#123;<span class="string">&quot;Dangerous&quot;</span>&#125;)</span><br><span class="line">               (<span class="name"><span class="built_in">ref-set</span></span> singer #&#123;<span class="string">&quot;MJ&quot;</span>&#125;) )</span><br><span class="line">@song      =&gt;  #&#123;<span class="string">&quot;Dangerous&quot;</span>&#125;</span><br><span class="line">@singer    =&gt;  #&#123;<span class="string">&quot;MJ&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Ref%E5%92%8CSTM/#more" rel="contents">
                 阅读全文 &raquo;
               </a>
             </div>
@@ -680,7 +662,7 @@
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
