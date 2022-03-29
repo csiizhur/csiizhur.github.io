@@ -45,7 +45,7 @@
   };
 </script>
 
-  <title>Clojure的并发-Ref和STM | Hexo</title>
+  <title>Clojure的并发-Ref和STM | Hexo</title><meta name="robots" content="noindex">
   
 
 
@@ -125,17 +125,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">1</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">2</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">1</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">0</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">11</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">4</span></a>
 
   </li>
       <li class="menu-item menu-item-search">
@@ -446,7 +446,7 @@
 <p>(defn ! [actor msg]<br>  (send actor #(apply (get %1 %2) (vector %2)) msg))<br>;;启动一个actor<br>(def actor (spawn<br>       (receive :hello #(println “receive “%))))<br>;;发送消息 hello<br>(! actor :hello)</p>
 <p>  利用spawn启动一个actor，其实本质上是一个agent，而发送通过感叹号!，给agent发送一个更新任务，它从recv-map中查找消息对应的处理函数并将消息作为参数来执行。难点在于消息匹配，匹配这种简单类型的消息没有问题，但是如果匹配用到变量，暂时没有想到好的思路实现，例如实现两个actor的ping/pong。</p>
 <p><a target="_blank" rel="noopener" href="http://www.blogjava.net/killme2008/archive/2010/07/archive/2010/07/archive/2010/07/archive/2010/07/14/326027.html">http://www.blogjava.net/killme2008/archive/2010/07/archive/2010/07/archive/2010/07/archive/2010/07/14/326027.html</a></p>
-
+<!-- flag of hidden posts -->
     </div>
 
     
@@ -459,16 +459,6 @@
 
 
         
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2021/03/06/Clojure%E7%9A%84%E5%B9%B6%E5%8F%91-Agent%E6%B7%B1%E5%85%A5%E5%88%86%E6%9E%90%E5%92%8CActor/" rel="prev" title="Clojure的并发-Agent深入分析和Actor">
-      <i class="fa fa-chevron-left"></i> Clojure的并发-Agent深入分析和Actor
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2021/03/14/Docker-postgres/" rel="next" title="Docker-postgres">
-      Docker-postgres <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
       </footer>
     
   </article>
@@ -540,20 +530,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">11</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">2</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -589,12 +573,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="站点总字数">21k</span>
+    <span title="站点总字数">6k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="站点阅读时长">19 分钟</span>
+    <span title="站点阅读时长">5 分钟</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://mist.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Mist</a> 强力驱动
   </div>
