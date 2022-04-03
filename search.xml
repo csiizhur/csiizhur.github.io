@@ -15,8 +15,10 @@
 </li>
 <li><p>2：  <strong><em>只对需要更新的字段更新<a href="%E6%AD%A4%E6%97%B6%E6%BB%A1%E8%B6%B3%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%9D%87%E4%BC%9A%E6%9B%B4%E6%96%B0%EF%BC%8C%E9%80%A0%E6%88%90%E8%84%8F%E6%95%B0%E6%8D%AE">2^</a></em></strong></p>
 </li>
+<li><p>3：  <strong><em>找到重复数据，为什么查询条件能得到多条数据:第三方系统唯一，我们系统重复</em></strong></p>
+</li>
 </ul>
-]]></content>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> yeepay_mch_registry <span class="keyword">SET</span> id <span class="operator">=</span> ?, mch_type <span class="operator">=</span> ?, subject_id <span class="operator">=</span> ?, corporation_id <span class="operator">=</span> ?, contact_id <span class="operator">=</span> ?, address_id <span class="operator">=</span> ?, settlement_acc_id <span class="operator">=</span> ?, product_id <span class="operator">=</span> ?, request_no <span class="operator">=</span> ?, parent_merchant_no <span class="operator">=</span> ?, business_role <span class="operator">=</span> ?, application_no <span class="operator">=</span> ?, application_status <span class="operator">=</span> ?, audit_opinion <span class="operator">=</span> ?, merchant_no <span class="operator">=</span> ?, acc_id <span class="operator">=</span> ?, create_time <span class="operator">=</span> ?, create_user <span class="operator">=</span> ?, update_time <span class="operator">=</span> ?, update_user <span class="operator">=</span> ?, agreement_sign_url <span class="operator">=</span> ?, channelid <span class="operator">=</span> ?, project_type <span class="operator">=</span> ? <span class="keyword">WHERE</span> ( request_no <span class="operator">=</span> ? )</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>SpringMvc使用多数据源</title>
@@ -72,6 +74,21 @@
 <h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
 
 <p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+]]></content>
+  </entry>
+  <entry>
+    <title>maven 插件</title>
+    <url>/2022/04/03/maven-%E6%8F%92%E4%BB%B6/</url>
+    <content><![CDATA[<h4 id="springwebflux-打包"><a href="#springwebflux-打包" class="headerlink" title="springwebflux 打包"></a>springwebflux 打包</h4><p><strong><em>通常springboot默认构建的plugins只有下面这一个</em></strong></p>
+<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><strong><em>一次功能迭代中，需要在resources目录下新增一个文件夹，造成打包异常</em></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">[ERROR] Failed to execute goal org.apache.maven.plugins:maven-resources-plugin:3.2.0:resources (default-resources) on project enterprise-wechat: Input length = 1 -&gt; [Help 1]</span><br></pre></td></tr></table></figure>
+
+<p><strong><em>通过增加-X参数<code>mvn clean package </code>还是一无所获</em></strong></p>
+<p><code>resources/walkthrugh/dist</code> 中存放一个vue单页面,<br>此前在resources目录下存放的两个react单页面，产线正常运行，打包构建正常.</p>
+<ul>
+<li>解决方法: 增加一个plugin插件(maven-resources-plugin)<figure class="highlight xml"><table><tr><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.maven.plugins<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>maven-resources-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
 ]]></content>
   </entry>
 </search>
