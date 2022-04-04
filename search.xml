@@ -3,22 +3,27 @@
   <entry>
     <title>Docker</title>
     <url>/2021/03/14/Docker/</url>
-    <content><![CDATA[]]></content>
-  </entry>
-  <entry>
-    <title>Mysql</title>
-    <url>/2022/03/31/Mysql/</url>
-    <content><![CDATA[<h4 id="更新问题-Duplicate-key"><a href="#更新问题-Duplicate-key" class="headerlink" title="更新问题 Duplicate key"></a>更新问题 <code>Duplicate key</code></h4><ul>
-<li><p>业务中往往会进行查询后更新的操作:即按条件查询后根据得到的结果数据，再次按照一定的条件进行更新，此时，更新预计影响行数为多行<br>且需要更新的列存在唯一约束列时就会出现次问题<a href="%E4%B8%8D%E5%85%81%E8%AE%B8%E6%9B%B4%E6%96%B0%E5%A4%9A%E8%A1%8C%E6%95%B0%E6%8D%AE%E7%9A%84%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F%E4%B8%BA%E7%9B%B8%E5%90%8C%E5%80%BC">1^</a>。</p>
+    <content><![CDATA[<h4 id="docker文件拷贝"><a href="#docker文件拷贝" class="headerlink" title="docker文件拷贝"></a>docker文件拷贝</h4><p><code>docker cp hue:/usr/share/hue/desktop/conf/hue.ini ./</code></p>
+<ul>
+<li><p>docker ps 获取容器名称<br><code>cp sleepy_galileo:/usr/share/hue/desktop/conf/hue.ini ./</code></p>
 </li>
-<li><p>解决：**<em>根据id进行update,则可以完全避免此类问题。**</em></p>
+<li><p>文件拷贝进Docker<br><code>docker cp ./hue.ini sleepy_galileo:/usr/share/hue/desktop/conf/hue.ini</code></p>
 </li>
-<li><p>2：  <strong><em>只对需要更新的字段更新<a href="%E6%AD%A4%E6%97%B6%E6%BB%A1%E8%B6%B3%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%9D%87%E4%BC%9A%E6%9B%B4%E6%96%B0%EF%BC%8C%E9%80%A0%E6%88%90%E8%84%8F%E6%95%B0%E6%8D%AE">2^</a></em></strong></p>
+<li><p>进入容器内部<br><code>docker exec -it -u root hue  /bin/sh</code></p>
 </li>
-<li><p>3：  <strong><em>找到重复数据，为什么查询条件能得到多条数据:第三方系统唯一，我们系统重复</em></strong></p>
+<li><p>进程<br><code>ps -a</code></p>
 </li>
 </ul>
-<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> yeepay_mch_registry <span class="keyword">SET</span> id <span class="operator">=</span> ?, mch_type <span class="operator">=</span> ?, subject_id <span class="operator">=</span> ?, corporation_id <span class="operator">=</span> ?, contact_id <span class="operator">=</span> ?, address_id <span class="operator">=</span> ?, settlement_acc_id <span class="operator">=</span> ?, product_id <span class="operator">=</span> ?, request_no <span class="operator">=</span> ?, parent_merchant_no <span class="operator">=</span> ?, business_role <span class="operator">=</span> ?, application_no <span class="operator">=</span> ?, application_status <span class="operator">=</span> ?, audit_opinion <span class="operator">=</span> ?, merchant_no <span class="operator">=</span> ?, acc_id <span class="operator">=</span> ?, create_time <span class="operator">=</span> ?, create_user <span class="operator">=</span> ?, update_time <span class="operator">=</span> ?, update_user <span class="operator">=</span> ?, agreement_sign_url <span class="operator">=</span> ?, channelid <span class="operator">=</span> ?, project_type <span class="operator">=</span> ? <span class="keyword">WHERE</span> ( request_no <span class="operator">=</span> ? )</span><br></pre></td></tr></table></figure>]]></content>
+<h4 id="docker安装vim"><a href="#docker安装vim" class="headerlink" title="docker安装vim"></a>docker安装vim</h4><p><code>apt-get install vim -y</code></p>
+<h4 id="vim显示行号"><a href="#vim显示行号" class="headerlink" title="vim显示行号"></a>vim显示行号</h4><p><code>在命令行模式下输入/set nu显示配置文件内容行号</code> 输入后回车</p>
+<h4 id="hue使用mysql元数据库"><a href="#hue使用mysql元数据库" class="headerlink" title="hue使用mysql元数据库"></a>hue使用mysql元数据库</h4><ul>
+<li><code>cd /build/env/bin</code> (/usr/share/hue)</li>
+<li><code>./hue syncdb</code></li>
+<li><code>./hue migrate</code></li>
+<li><code>./startup.sh</code></li>
+</ul>
+<h4 id="ui界面"><a href="#ui界面" class="headerlink" title="ui界面"></a>ui界面</h4><p><code>localhost:8888</code></p>
+]]></content>
   </entry>
   <entry>
     <title>SpringMvc使用多数据源</title>
@@ -35,6 +40,21 @@
         <tag>java</tag>
         <tag>javascript</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Mysql</title>
+    <url>/2022/03/31/Mysql/</url>
+    <content><![CDATA[<h4 id="更新问题-Duplicate-key"><a href="#更新问题-Duplicate-key" class="headerlink" title="更新问题 Duplicate key"></a>更新问题 <code>Duplicate key</code></h4><ul>
+<li><p>业务中往往会进行查询后更新的操作:即按条件查询后根据得到的结果数据，再次按照一定的条件进行更新，此时，更新预计影响行数为多行<br>且需要更新的列存在唯一约束列时就会出现次问题<a href="%E4%B8%8D%E5%85%81%E8%AE%B8%E6%9B%B4%E6%96%B0%E5%A4%9A%E8%A1%8C%E6%95%B0%E6%8D%AE%E7%9A%84%E5%94%AF%E4%B8%80%E7%BA%A6%E6%9D%9F%E4%B8%BA%E7%9B%B8%E5%90%8C%E5%80%BC">1^</a>。</p>
+</li>
+<li><p>解决：**<em>根据id进行update,则可以完全避免此类问题。**</em></p>
+</li>
+<li><p>2：  <strong><em>只对需要更新的字段更新<a href="%E6%AD%A4%E6%97%B6%E6%BB%A1%E8%B6%B3%E6%9F%A5%E8%AF%A2%E6%9D%A1%E4%BB%B6%E7%9A%84%E5%A4%9A%E4%B8%AA%E6%95%B0%E6%8D%AE%E5%9D%87%E4%BC%9A%E6%9B%B4%E6%96%B0%EF%BC%8C%E9%80%A0%E6%88%90%E8%84%8F%E6%95%B0%E6%8D%AE">2^</a></em></strong></p>
+</li>
+<li><p>3：  <strong><em>找到重复数据，为什么查询条件能得到多条数据:第三方系统唯一，我们系统重复</em></strong></p>
+</li>
+</ul>
+<figure class="highlight sql"><table><tr><td class="code"><pre><span class="line"><span class="keyword">update</span> yeepay_mch_registry <span class="keyword">SET</span> id <span class="operator">=</span> ?, mch_type <span class="operator">=</span> ?, subject_id <span class="operator">=</span> ?, corporation_id <span class="operator">=</span> ?, contact_id <span class="operator">=</span> ?, address_id <span class="operator">=</span> ?, settlement_acc_id <span class="operator">=</span> ?, product_id <span class="operator">=</span> ?, request_no <span class="operator">=</span> ?, parent_merchant_no <span class="operator">=</span> ?, business_role <span class="operator">=</span> ?, application_no <span class="operator">=</span> ?, application_status <span class="operator">=</span> ?, audit_opinion <span class="operator">=</span> ?, merchant_no <span class="operator">=</span> ?, acc_id <span class="operator">=</span> ?, create_time <span class="operator">=</span> ?, create_user <span class="operator">=</span> ?, update_time <span class="operator">=</span> ?, update_user <span class="operator">=</span> ?, agreement_sign_url <span class="operator">=</span> ?, channelid <span class="operator">=</span> ?, project_type <span class="operator">=</span> ? <span class="keyword">WHERE</span> ( request_no <span class="operator">=</span> ? )</span><br></pre></td></tr></table></figure>]]></content>
   </entry>
   <entry>
     <title>SpringMvc请求参数</title>
